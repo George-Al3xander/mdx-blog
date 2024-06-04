@@ -2,7 +2,6 @@ import React from "react"
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -10,7 +9,7 @@ import {
 import { Button } from "../ui/button"
 import { Menu } from "lucide-react"
 import Logo from "../logo"
-import { navLinks, socialMediaLinks } from "@/data"
+import { HEADER_LAYOUT_BREAKPOINT, navLinks, socialMediaLinks } from "@/data"
 import Link from "next/link"
 
 const MenuItem = ({
@@ -30,7 +29,7 @@ const MenuItem = ({
 )
 
 const MobileMenu = () => (
-  <aside className="md:hidden">
+  <aside className={`sm:hidden`}>
     <Sheet>
       <Button variant="outline" size="icon" asChild>
         <SheetTrigger>

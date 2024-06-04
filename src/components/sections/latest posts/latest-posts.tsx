@@ -1,13 +1,12 @@
 import React, { Fragment } from "react"
-import { getPostsMeta } from "../../../../lib/posts"
+import { getPostsMeta, getPostsPaginate } from "../../../../lib/posts"
 import PostCard from "./post-card"
+import { Button } from "@/ui/button"
+
+import Link from "next/link"
 
 const LatestPosts = async () => {
-  const posts = await getPostsMeta()
-
-  if (!posts || posts.length == 0) {
-    return <p className="mt-10 text-center">Nothing to see here yet.</p>
-  }
+  const posts = await getPostsPaginate()
 
   return (
     <section className="mb-10">
@@ -16,14 +15,26 @@ const LatestPosts = async () => {
           Latest posts
         </h3>
         <hr className="h-4" />
-        <ul className="flex flex-col gap-4">
-          {posts.map((post) => (
-            <Fragment key={post.id + "-fragment"}>
-              <PostCard key={post.id} {...post} />
-              <hr key={post.id + "hr"} className="h-4" />
-            </Fragment>
-          ))}
-        </ul>
+        {!posts || posts.length == 0 ? (
+          <p className="mt-10 text-center">Nothing to see here yet.</p>
+        ) : (
+          <>
+            <ul className="flex flex-col gap-4">
+              {posts.map((post, index) => {
+                const isLast = index == posts.length - 1
+                return (
+                  <Fragment key={post.id + "-fragment"}>
+                    <PostCard isLast={isLast} key={post.id} {...post} />
+                    {!isLast && <hr key={post.id + "hr"} className="h-4" />}
+                  </Fragment>
+                )
+              })}
+            </ul>
+            <Button asChild>
+              <Link href={"/blog"}>View all →</Link>
+            </Button>
+          </>
+        )}
       </div>
     </section>
   )

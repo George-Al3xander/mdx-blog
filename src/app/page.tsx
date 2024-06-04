@@ -4,9 +4,9 @@ import Image from "next/image"
 
 export default function Home() {
   return (
-    <div className="w-[min(40rem,90%)] mx-auto">
+    <section className="w-responsive mx-auto pb-10">
       <HeroSection />
       <LatestPosts />
-    </div>
+    </section>
   )
 }
