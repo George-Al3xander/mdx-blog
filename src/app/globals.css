@@ -75,21 +75,6 @@
   }
 }
 
-.last-article {
-  position: relative;
-}
-
-.last-article:after {
-  position: absolute;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
-  content: "";
-  background: linear-gradient(to bottom, transparent, white);
-  pointer-events: none; /* so the text is still selectable */
-}
-
-
 [data-rehype-pretty-code-figure] pre {
   @apply px-0;
 }
@@ -128,4 +113,26 @@
 
 .subheading-anchor {
   @apply no-underline hover:underline;
+}
+
+html {
+  --fade-post-color: white;
+}
+
+html.dark {
+  --fade-post-color: #0c0a09;
+}
+
+.last-article {
+  position: relative;
+}
+
+.last-article:after {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  content: "";
+  background: linear-gradient(to bottom, transparent, var(--fade-post-color));
+  pointer-events: none; /* so the text is still selectable */
 }

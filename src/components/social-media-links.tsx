@@ -1,12 +1,12 @@
 import Link from "next/link"
 import React from "react"
 import { Button } from "@/ui/button"
-import { HEADER_LAYOUT_BREAKPOINT, socialMediaLinks } from "@/data"
+import { HEADER_LAYOUT_BREAKPOINT, socialMediaData } from "@/data"
 
 const SocialMediaLinks = () => {
   return (
     <>
-      {socialMediaLinks.map(({ link, Icon }) => (
+      {socialMediaData.map(({ link, Icon }) => (
         <Button
           className={`hidden sm:flex`}
           key={link}

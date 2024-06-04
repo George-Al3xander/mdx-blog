@@ -9,7 +9,7 @@ import {
 import { Button } from "../ui/button"
 import { Menu } from "lucide-react"
 import Logo from "../logo"
-import { HEADER_LAYOUT_BREAKPOINT, navLinks, socialMediaLinks } from "@/data"
+import { HEADER_LAYOUT_BREAKPOINT, navLinks, socialMediaData } from "@/data"
 import Link from "next/link"
 
 const MenuItem = ({
@@ -45,7 +45,7 @@ const MobileMenu = () => (
             {navLinks.map((link) => (
               <MenuItem key={link} href={link} title={link} />
             ))}
-            {socialMediaLinks.map(({ title, link }) => (
+            {socialMediaData.map(({ title, link }) => (
               <MenuItem newTab key={title} href={link} title={title} />
             ))}
           </ul>

@@ -3,24 +3,34 @@ import { HeroData, ThemeVariant } from "./types/types"
 import Link from "next/link"
 import React from "react"
 
-export const socialMediaLinks: {
+export const websiteName = "MDX Blog"
+
+export const socialMediaLinks = {
+  github: "https://github.com/George-Al3xander",
+  linkedin: "https://github.com/George-Al3xander",
+}
+
+export const socialMediaIcons = {
+  github: Github,
+  linkedin: Linkedin,
+}
+
+export const socialMediaTitles = {
+  github: "GitHub",
+  linkedin: "LinkedIn",
+}
+
+export const socialMediaData: {
   link: string
   Icon: React.ForwardRefExoticComponent<
     Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
   >
   title: string
-}[] = [
-  {
-    link: "https://github.com/George-Al3xander",
-    Icon: Github,
-    title: "GitHub",
-  },
-  {
-    link: "https://github.com/George-Al3xander",
-    Icon: Linkedin,
-    title: "LinkedIn",
-  },
-]
+}[] = Object.entries(socialMediaLinks).map(([key, link]) => {
+  const Icon = socialMediaIcons[key as "github"]
+  const title = socialMediaTitles[key as "github"]
+  return { title, Icon, link }
+})
 
 const PORTFOLIO_LINK = "https://second-portfolio-gamma.vercel.app"
 
@@ -48,9 +58,7 @@ export const heroData: HeroData = {
         Link,
         {
           target: "_blank",
-          href: socialMediaLinks.find(
-            ({ title }) => title.toLowerCase() == "github"
-          )?.link!,
+          href: socialMediaLinks.github,
         },
         "GitHub"
       ),
