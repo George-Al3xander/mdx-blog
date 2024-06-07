@@ -1,17 +1,23 @@
 import React, { Fragment } from "react"
-import { getPostsMeta, getPostsPaginate } from "../../../../lib/posts"
+
 import PostCard from "./post-card"
 import { Button } from "@/ui/button"
 
 import Link from "next/link"
+import { getPosts,  } from "@/mylib/mongo/actions"
+import { MongoService, Post } from "@/mylib/mongo"
+import { TPost } from "@/types/types"
 
 const LatestPosts = async () => {
-  const posts = await getPostsPaginate()
+
+
+  //const posts: TPost[] = await getPosts(1)
+  const posts: TPost[] = await new MongoService(Post).findAll(1)
 
   return (
     <section className="mb-10">
-      <div className="flex gap-6 flex-col text-center">
-        <h3 className="text-5xl md:text-7xl font-extrabold capitalize">
+      <div className="flex flex-col gap-6 text-center">
+        <h3 className="text-5xl font-extrabold capitalize md:text-7xl">
           Latest posts
         </h3>
         <hr className="h-4" />
@@ -21,17 +27,17 @@ const LatestPosts = async () => {
           <>
             <ul className="flex flex-col gap-4">
               {posts.map((post, index) => {
-                const isLast = index == posts.length - 1
+                const isLast = Boolean(index == posts.length - 1)
                 return (
                   <Fragment key={post.id + "-fragment"}>
-                    <PostCard isLast={isLast} key={post.id} {...post} />
+                    <PostCard key={post.id} isLast={isLast} post={post} />
                     {!isLast && <hr key={post.id + "hr"} className="h-4" />}
                   </Fragment>
                 )
               })}
             </ul>
             <Button asChild>
-              <Link href={"/blog"}>View all →</Link>
+              <Link href={"/posts"}>View all →</Link>
             </Button>
           </>
         )}

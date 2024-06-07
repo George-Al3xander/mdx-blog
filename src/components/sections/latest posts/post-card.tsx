@@ -1,37 +1,50 @@
 import DateComp from "@/components/post-date"
+import TagsList from "@/components/tags/tags-list"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Meta } from "@/types/types"
-import { Calendar } from "lucide-react"
+import { TPost } from "@/types/types"
+import { Calendar, CornerRightUp } from "lucide-react"
 import Link from "next/link"
 import React from "react"
 
 const PostCard = ({
-  title,
-  description,
-  id,
-  date,
+  post: { title, description, _id, date, author, tags },
   isLast = false,
-}: Meta & { isLast?: boolean }) => {
+}: { post: TPost } & { isLast?: boolean }) => {
   return (
     <li
-      className={cn("flex flex-col gap-2 item text-left", {
-        "last-article": isLast,
+      className={cn("item flex flex-col gap-3 text-left", {
+        "last-article pointer-events-none": isLast,
       })}
     >
-      <h3 className="text-2xl  font-bold">{title}</h3>
+      <h3 className="text-2xl font-bold">{title}</h3>
+      <TagsList tags={tags} />
       <p className="opacity-60">
         {description ? description : "There is no description for this post"}
       </p>
-      <ul className="flex justify-between gap-4 font-semibold">
-        <li className="flex items-center justify-center gap-2">
-          <Calendar />
-          <span className="sr-only">Published: </span>
-          <DateComp date={date} />
+      <ul className="flex flex-wrap justify-between gap-4 font-semibold">
+        <li className="flex items-center justify-center">
+          <p className="flex items-center justify-center gap-1">
+            <Calendar className="h-5 w-5" />
+            <span className="sr-only">Published: </span>
+            <DateComp date={date} />
+          </p>
+
+          <p className="italic">
+            <span className="sr-only">Written: </span>
+            <span>, by {author}</span>
+          </p>
         </li>
-        <Button className="hover:cursor-pointer" variant={"link"} asChild>
+
+        <Button
+          className="ml-auto hover:cursor-pointer"
+          variant={"link"}
+          asChild
+        >
           <li>
-            <Link href={`/blog/${id}`}>Read more →</Link>
+            <Link className={"flex gap-2"} href={`/posts/${_id}`}>
+              Read more <CornerRightUp className="h-4 w-4" />
+            </Link>
           </li>
         </Button>
       </ul>

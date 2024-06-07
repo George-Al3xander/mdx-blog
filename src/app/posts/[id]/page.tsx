@@ -1,10 +1,16 @@
 import React from "react"
-import { getPostByName } from "../../../../lib/posts"
+
 import { notFound } from "next/navigation"
 import DateComp from "@/components/post-date"
-import { Meta } from "@/types/types"
-import { Metadata, ResolvingMetadata } from "next"
+
+import { Metadata } from "next"
 import { websiteName } from "@/data"
+import { getPostById } from "@/mylib/mongo/actions"
+import { Markdown } from "@/components/markdown"
+import Link from "next/link"
+import TagsList from "@/components/tags/tags-list"
+
+import PostHeader from "@/components/post/post-header"
 
 export async function generateMetadata({
   params,
@@ -12,9 +18,10 @@ export async function generateMetadata({
   params: { id: string }
 }): Promise<Metadata> {
   const { id } = params
-  const post = await getPostByName(`${id}.mdx`)
+  const post = await getPostById(id)
+
   if (!post) return {}
-  const { title, date, description } = post.meta
+  const { title, date, description } = post
   const ogSearchParams = new URLSearchParams()
   ogSearchParams.set("title", title)
   ogSearchParams.set("date", date)
@@ -47,20 +54,24 @@ export async function generateMetadata({
 }
 
 const DynamicPage = async ({ params: { id } }: { params: { id: string } }) => {
-  const post = await getPostByName(`${id}.mdx`)
+  const post = await getPostById(id)
 
   if (!post) notFound()
-  const { meta, content } = post
+  const { content, tags } = post
 
-  const { title, date, description } = meta
   return (
-    <section className="w-responsive mx-auto py-10 prose dark:prose-invert">
-      <h1>{title}</h1>
-      {description && <p>{description}</p>}
-      <DateComp date={date} />
+    <section className="prose mx-auto w-responsive py-10 dark:prose-invert">
+      <PostHeader post={post} />
+      <hr className="h-4" />
+      <article>
+        <Markdown>{content}</Markdown>
+      </article>
       <hr className="h-4" />
 
-      <article>{content}</article>
+      <div className="item flex items-center">
+        <p>Tags: </p>
+        <TagsList tags={tags} />
+      </div>
     </section>
   )
 }

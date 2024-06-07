@@ -1,24 +1,14 @@
 import { ButtonProps } from "@/components/ui/button"
-import { JSXElementConstructor, ReactElement } from "react"
+import { Document } from "mongoose"
 
-export type Meta = {
-  id: string
-  title: string
-  date: string
-  tags: string[]
-  description?: string
-}
 
-export type BlogPost = {
-  meta: Meta
-  content: ReactElement<any, string | JSXElementConstructor<any>>
-}
 
 export type ThemeVariant = "light" | "dark" | "system"
 
 export type HeroData = {
   title: string
-  description: string
+  description: string,
+  subtitle?: string,
   buttons: ButtonProps[]
 }
 
@@ -47,4 +37,22 @@ export type SerializeOptions = {
    * Indicate whether or not frontmatter should be parsed out of the MDX. Defaults to false
    */
   parseFrontmatter?: boolean
+}
+
+export type TPost = Document & {
+  title: string
+  description: string
+  content: string
+  date: string
+  tags: string[]
+  author: string
+  originalSource?: {
+    title: string
+    href: string
+  }
+}
+
+export type TProgram = TPost & {
+  type: "strength" | "hypertrophy" | "mixed"
+  file?: string
 }

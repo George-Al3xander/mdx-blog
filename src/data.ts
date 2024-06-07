@@ -1,9 +1,16 @@
-import { Github, LucideProps, Linkedin } from "lucide-react"
+import {
+  Github,
+  Linkedin,
+  Dumbbell,
+  LucideProps,
+  Newspaper,
+} from "lucide-react"
 import { HeroData, ThemeVariant } from "./types/types"
 import Link from "next/link"
 import React from "react"
 
-export const websiteName = "MDX Blog"
+export const websiteName = "Strength Chronicles"
+export const websiteIcon = React.createElement(Dumbbell)
 
 export const socialMediaLinks = {
   github: "https://github.com/George-Al3xander",
@@ -34,14 +41,15 @@ export const socialMediaData: {
 
 const PORTFOLIO_LINK = "https://second-portfolio-gamma.vercel.app"
 
-export const navLinks = ["blog", "about"] as const
+export const navLinks = ["home", "posts", "programs", "about"] as const
 
 export const themesVariants: ThemeVariant[] = ["light", "dark", "system"]
 
 export const heroData: HeroData = {
-  title: "Hello, I'm George",
+  title: "Welcome to Strength Chronicles",
+  subtitle: "Your Ultimate Powerlifting Resource",
   description:
-    "Welcome to my blog template. Built using tailwind, shadcn and Nextjs 14.",
+    "Explore a comprehensive archive of powerlifting articles, training programs, and exercise guides. From beginners to elite athletes, find the expert knowledge and tools you need to enhance your strength training journey.",
   buttons: [
     {
       children: React.createElement(
@@ -50,7 +58,8 @@ export const heroData: HeroData = {
           target: "_blank",
           href: PORTFOLIO_LINK,
         },
-        "Visit my portfolio"
+        React.createElement(Newspaper, { className: "h-4 w-4 mr-2" }),
+        "Articles",
       ),
     },
     {
@@ -60,7 +69,8 @@ export const heroData: HeroData = {
           target: "_blank",
           href: socialMediaLinks.github,
         },
-        "GitHub"
+        React.createElement(Dumbbell, { className: "h-4 w-4 mr-2" }),
+        "Programs",
       ),
       variant: "outline",
     },
@@ -73,7 +83,6 @@ export const aboutPageInfo = {
   person: {
     img: {
       alt: "GV",
-      src: "/assets/img/ph_1.jpg",
     },
     name: "George Valuiskyi",
     title: "trainee front-end/full-stack developer",

@@ -4,20 +4,18 @@ import Nav from "./nav/nav"
 import SocialMediaLinks from "../social-media-links"
 import MobileMenu from "../mobile menu/mobile-menu"
 import ThemeSwitchMenu from "../theme switch menu/theme-switch-menu"
-import { HEADER_LAYOUT_BREAKPOINT } from "@/data"
+
 const Header = () => {
   return (
-    <header className=" fixed z-50  top-0 left-0 right-0 w-screen backdrop-blur-md">
-      <div className="flex items-center gap-10 py-4 px-8">
+    <header className="fixed left-0 right-0 top-0 z-50 w-screen border-b border-border backdrop-blur-md">
+      <div className="flex items-center gap-10 px-8 py-4">
         <Logo />
         <Nav />
-        <ul className={`flex sm:flex-row-reverse ml-auto`}>
+        <ul className={`ml-auto flex`}>
           <ThemeSwitchMenu />
-          <SocialMediaLinks />
           <MobileMenu />
         </ul>
       </div>
-      <hr className="h-2" />
     </header>
   )
 }

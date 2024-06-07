@@ -8,21 +8,24 @@ import React from "react"
 const Nav = () => {
   const pathname = usePathname()
   return (
-    <nav className="hidden sm:inline">
-      <ul className="flex gap-3">
-        {navLinks.map((link) => (
-          <li
-            className={cn(
-              "text-bold transition-all capitalize opacity-60 hover:opacity-100 hover:cursor-pointer",
-              {
-                "opacity-100": pathname === "/" + link,
-              }
-            )}
-            key={link}
-          >
-            <Link href={"/" + link}>{link}</Link>
-          </li>
-        ))}
+    <nav className="mx-auto hidden md:inline">
+      <ul className="flex gap-20">
+        {navLinks.map((link) => {
+          const href = link == "home" ? "" : link
+          return (
+            <li
+              className={cn(
+                "text-bold uppercase opacity-60 transition-all hover:cursor-pointer hover:opacity-100",
+                {
+                  "opacity-100": pathname === "/" + href,
+                },
+              )}
+              key={link}
+            >
+              <Link href={"/" + href}>{link}</Link>
+            </li>
+          )
+        })}
       </ul>
     </nav>
   )

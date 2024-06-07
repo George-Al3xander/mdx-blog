@@ -25,6 +25,9 @@ const config = {
       height: {
         "screen-no-header": "calc(100vh-5rem)",
       },
+      backgroundImage: {
+        hero: "url(/assets/img/bg_hero.jpg)",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -21,7 +21,7 @@ const MenuItem = ({
   title: string
   newTab?: boolean
 }) => (
-  <li className="text-bold capitalize transition-all  hover:translate-x-2 hover:cursor-pointer">
+  <li className="text-bold capitalize transition-all hover:translate-x-2 hover:cursor-pointer">
     <Link target={newTab ? "_blank" : "_self"} href={href}>
       {title}
     </Link>
@@ -29,7 +29,7 @@ const MenuItem = ({
 )
 
 const MobileMenu = () => (
-  <aside className={`sm:hidden`}>
+  <aside className={`md:hidden`}>
     <Sheet>
       <Button variant="outline" size="icon" asChild>
         <SheetTrigger>
@@ -41,7 +41,7 @@ const MobileMenu = () => (
           <SheetTitle className="mb-2">
             <Logo />
           </SheetTitle>
-          <ul className="flex flex-col gap-2 items-start">
+          <ul className="flex flex-col items-start gap-2">
             {navLinks.map((link) => (
               <MenuItem key={link} href={link} title={link} />
             ))}

@@ -1,20 +1,38 @@
 import { Button } from "@/components/ui/button"
 import { heroData } from "@/data"
 import React from "react"
+import Image from "next/image"
 
-const { title, description, buttons } = heroData
+const { title, description, buttons, subtitle } = heroData
 
 const HeroSection = () => (
-  <section className=" py-4 flex flex-col justify-center items-center gap-4 text-center mt-10 mb-[30vh]  md:my-0 md:h-[calc(100vh-5rem)]">
-    <h2 className="text-4xl md:text-7xl font-extrabold">{title}</h2>
-    <p className="text-xl  font-semibold opacity-60">{description}</p>
-    <ul className="flex gap-4">
-      {buttons.map((btn, index) => (
-        <li key={`hero-btn-${index}`}>
-          <Button className="p-6" {...btn} asChild />
-        </li>
-      ))}
-    </ul>
+  <section className="last-article relative mb-[30vh] mt-10 flex overflow-hidden py-4 text-center md:my-0 md:h-[calc(100vh-5rem)]">
+    <span className="-mx-auto absolute inset-y-0 -z-10 h-full w-full opacity-70 blur-sm">
+      <Image
+        width={1920}
+        className={"max-w-[50rem] md:max-w-full md:object-cover"}
+        height={1280}
+        src={"/assets/img/bg_hero.jpg"}
+        alt={"Hero section background"}
+      />
+    </span>
+
+    <div className="z-10 mx-auto flex w-responsive-lg flex-col items-center justify-center gap-4">
+      <h2 className="text-4xl font-extrabold md:text-7xl">{title}</h2>
+      {subtitle && (
+        <h3 className="font-semibold italic opacity-60 md:text-2xl">
+          {subtitle}
+        </h3>
+      )}
+      <p className="font-semibold opacity-60 md:text-lg">{description}</p>
+      <ul className="flex flex-col-reverse gap-4 md:flex-row">
+        {buttons.map((btn, index) => (
+          <li key={`hero-btn-${index}`}>
+            <Button className="p-6" {...btn} asChild />
+          </li>
+        ))}
+      </ul>
+    </div>
   </section>
 )
 

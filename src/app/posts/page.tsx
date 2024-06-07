@@ -1,16 +1,16 @@
 import { PageParamsProps } from "@/types/types"
 import React from "react"
-import { getPostsCount } from "../../../lib/posts"
 
 import BlogPagination from "@/components/sections/blog/blog-pagination"
 import { redirect } from "next/navigation"
 import BlogPosts from "@/components/sections/blog/blog-posts"
+import { getPostCount } from "@/mylib/mongo/actions"
 
 const BlogMainPage = async ({
   searchParams = { page: "1" },
 }: PageParamsProps) => {
   const page = searchParams.page || "1"
-  const totalCount = await getPostsCount()
+  const totalCount = await getPostCount()
   const pagesCount = Math.floor(totalCount / 5) + 1
 
   if (Number(page) > pagesCount) {
@@ -20,20 +20,20 @@ const BlogMainPage = async ({
   }
 
   return (
-    <section className="w-responsive mx-auto py-10">
-      <h3 className="text-3xl md:text-5xl font-extrabold capitalize py-6">
+    <section className="mx-auto w-responsive py-10">
+      <h3 className="py-6 text-3xl font-extrabold capitalize md:text-5xl">
         Blog
       </h3>
-      <p className="opacity-60 text-xl font-semibold">
+      <p className="text-xl font-semibold opacity-60">
         My ramblings on all things web dev.
       </p>
-      <hr className="h-8 my-4" />
+      <hr className="my-4 h-8" />
       {totalCount > 0 ? (
         <BlogPosts page={page} />
       ) : (
         <p className="mt-10 text-center">Nothing to see here yet.</p>
       )}
-      <BlogPagination totalCount={totalCount} page={page} />
+      {pagesCount > 1 && <BlogPagination totalCount={totalCount} page={page} />}
     </section>
   )
 }

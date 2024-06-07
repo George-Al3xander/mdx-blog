@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode } from "react"
+import React from "react"
 import {
   Pagination,
   PaginationContent,
@@ -9,7 +9,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import { cn } from "@/lib/utils"
-import { generatePageNumbers } from "../../../../lib/utils"
+import { generatePageNumbers } from "@/mylib/utils"
 
 
 const BlogPagination = ({

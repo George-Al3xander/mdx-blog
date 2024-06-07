@@ -1,12 +1,15 @@
 import Link from "next/link"
 import React from "react"
-import { BookOpen } from "lucide-react"
-import { websiteName } from "@/data"
+
+import { websiteIcon, websiteName } from "@/data"
 const Logo = () => {
   return (
-    <Link className="flex gap-2  items-center" href={"/"}>
-      <BookOpen />
-      <h1 className="font-bold text-xl">{websiteName}</h1>
+    <Link className="flex items-center gap-2" href={"/"}>
+      {websiteIcon}
+      <h1 className="hidden text-xl font-bold md:inline">{websiteName}</h1>
+      <h1 className="text-xl font-bold md:hidden">
+        {websiteName.split(" ").map((word) => word[0].toUpperCase())}
+      </h1>
     </Link>
   )
 }

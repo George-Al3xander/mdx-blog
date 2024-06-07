@@ -9,11 +9,10 @@ import {
   DropdownMenuTrigger,
 } from "@/ui/dropdown-menu"
 import { Button } from "../ui/button"
-import { Sun, Moon } from "lucide-react"
+import { Sun, Moon, Check } from "lucide-react"
 import React from "react"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
-import { Check } from "lucide-react"
 const ThemeSwitchMenu = () => {
   const { setTheme, theme } = useTheme()
 
@@ -32,14 +31,14 @@ const ThemeSwitchMenu = () => {
         {themesVariants.map((variant) => (
           <DropdownMenuItem
             className={cn("cursor-pointer", {
-              "opacity-60 pointer-events-none cursor-not-allowed":
+              "pointer-events-none cursor-not-allowed opacity-60":
                 theme === variant,
             })}
             onClick={() => setTheme(variant)}
             key={variant}
           >
             {variant}
-            {theme === variant && <Check className="h-4 w-4 ml-2" />}
+            {theme === variant && <Check className="ml-2 h-4 w-4" />}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
