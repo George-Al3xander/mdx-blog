@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { ImageResponse } from "next/og"
-import { socialMediaLinks, websiteName } from "@/data"
+import { ogImgPropertyKeys, socialMediaLinks, websiteName } from "@/data"
 import { formatDate } from "@/components/post-date"
+import { TPost } from "@/types/types"
 export const runtime = "edge"
 
 const interBold = fetch(
@@ -11,18 +12,26 @@ const interBold = fetch(
 export async function GET(req: NextRequest) {
   try {
     const fontBold = await interBold
-
+    let postObj: Partial<TPost> = {}
     const { searchParams } = req.nextUrl
-    const title = searchParams.get("title")
-    const date = searchParams.get("date")
 
-    if (!title) {
-      throw new Error("no title provided")
+    for (const key of ogImgPropertyKeys) {
+      const value = searchParams.get(key)
+      if (value) {
+        postObj[key] = value
+      } else {
+        throw new Error(`no ${key} provided`)
+      }
     }
-    if (!date) {
-      throw new Error("no date provided")
+    const { title, description, date, author } = postObj as {
+      [K in (typeof ogImgPropertyKeys)[number]]: string
     }
+
     const heading = title.length > 140 ? `${title.substring(0, 140)}...` : title
+    const desc =
+      description.length > 350
+        ? `${description.substring(0, 140)}...`
+        : description
 
     return new ImageResponse(
       (
@@ -49,11 +58,16 @@ export async function GET(req: NextRequest) {
             <p tw="ml-2 font-bold text-2xl">{websiteName}</p>
           </div>
           <div tw="flex flex-col flex-1 py-10">
-            <div tw="flex text-xl uppercase font-bold tracking-tight font-normal">
-              BLOG POST
+            <div tw="flex text-xl uppercase font-bold mb-4 tracking-tight font-normal">
+              POST
             </div>
-            <div tw="flex text-[80px] font-bold text-[50px]">{heading}</div>
-            <div tw="opacity-60 text-xl">{formatDate(date)}</div>
+            <div tw="flex text-[80px] font-bold text-[50px] mb-4 ">
+              {heading}
+            </div>
+            <div tw="mb-4 text-2xl opacity-60">{desc}</div>
+            <div tw="opacity-80 text-xl flex">
+              {formatDate(date)}, by {author}
+            </div>
           </div>
           <div tw="flex items-center w-full justify-between">
             <div tw="flex text-xl">{process.env.HOST_URL}</div>

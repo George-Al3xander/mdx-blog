@@ -55,8 +55,7 @@ export const heroData: HeroData = {
       children: React.createElement(
         Link,
         {
-          target: "_blank",
-          href: PORTFOLIO_LINK,
+          href: "/posts",
         },
         React.createElement(Newspaper, { className: "h-4 w-4 mr-2" }),
         "Articles",
@@ -66,8 +65,7 @@ export const heroData: HeroData = {
       children: React.createElement(
         Link,
         {
-          target: "_blank",
-          href: socialMediaLinks.github,
+          href: "/programs",
         },
         React.createElement(Dumbbell, { className: "h-4 w-4 mr-2" }),
         "Programs",
@@ -93,3 +91,10 @@ export const aboutPageInfo = {
   
   `,
 } as const
+
+export const ogImgPropertyKeys = [
+  "title",
+  "date",
+  "description",
+  "author",
+] as const

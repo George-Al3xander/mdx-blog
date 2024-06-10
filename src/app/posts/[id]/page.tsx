@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import DateComp from "@/components/post-date"
 
 import { Metadata } from "next"
-import { websiteName } from "@/data"
+import { ogImgPropertyKeys, websiteName } from "@/data"
 import { getPostById } from "@/mylib/mongo/actions"
 import { Markdown } from "@/components/markdown"
 import Link from "next/link"
@@ -21,15 +21,17 @@ export async function generateMetadata({
   const post = await getPostById(id)
 
   if (!post) return {}
-  const { title, date, description } = post
+  const { title, description, author } = post
   const ogSearchParams = new URLSearchParams()
-  ogSearchParams.set("title", title)
-  ogSearchParams.set("date", date)
+
+  for (const key of ogImgPropertyKeys) {
+    ogSearchParams.set(key, post[key])
+  }
 
   return {
     title: `${title} | ${websiteName}`,
     description,
-    authors: {},
+    authors: { name: author },
     openGraph: {
       title,
       description,
@@ -68,8 +70,8 @@ const DynamicPage = async ({ params: { id } }: { params: { id: string } }) => {
       </article>
       <hr className="h-4" />
 
-      <div className="item flex items-center">
-        <p>Tags: </p>
+      <div className="prose-ul:p-0">
+        <h4>Tags: </h4>
         <TagsList tags={tags} />
       </div>
     </section>
