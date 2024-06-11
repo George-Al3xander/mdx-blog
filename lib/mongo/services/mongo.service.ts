@@ -1,4 +1,4 @@
-import mongoose, { ConnectOptions,Model, Document  } from "mongoose"
+import mongoose, { ConnectOptions, Model, Document } from "mongoose"
 
 type SortFilter = {
   [key: string]: "asc" | "desc"
@@ -7,7 +7,7 @@ type SortFilter = {
 const uri = process.env.MONGO_URI!
 
 const clientOptions: ConnectOptions = {
-  serverApi: { version: "1", strict: true, deprecationErrors: true },
+  serverApi: { version: "1", strict: false, deprecationErrors: true },
 }
 
 function ConnectToMongo() {
@@ -49,6 +49,7 @@ export class MongoService<T extends Document> {
   @ConnectToMongo()
   async findAll(
     page: string | number,
+    searchQuery?: string | undefined,
     sortFilter: SortFilter | undefined = { date: "desc" },
   ): Promise<T[]> {
     page = typeof page == "number" ? page : Number(page)
@@ -57,6 +58,14 @@ export class MongoService<T extends Document> {
     const skip = (page - 1) * perPage
 
     try {
+      if (searchQuery) {
+        await this.mongoModel.createIndexes()
+        return await this.mongoModel.find({
+          $text: { $search: searchQuery, $caseSensitive: false },
+        })
+        // .skip(skip)
+        // .limit(perPage)
+      }
       return this.mongoModel.find().sort(sortFilter).limit(perPage).skip(skip)
     } catch (error) {
       console.log(error)

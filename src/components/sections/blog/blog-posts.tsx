@@ -2,8 +2,14 @@ import React, { Fragment } from "react"
 import PostCard from "../latest posts/post-card"
 import { getPosts } from "@/mylib/mongo/actions"
 
-const BlogPosts = async ({ page }: { page: string }) => {
-  const posts = await getPosts(page)
+const BlogPosts = async ({
+  page,
+  searchQuery,
+}: {
+  page: string
+  searchQuery: string
+}) => {
+  const posts = await getPosts(page, searchQuery)
 
   if (!posts || posts.length == 0) {
     return <p className="mt-10 text-center">Nothing to see here yet.</p>
