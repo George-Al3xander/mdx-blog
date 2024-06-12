@@ -26,7 +26,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <div className="mt-[5rem]">{children}</div>
+          <div className="mt-[4.5rem]">{children}</div>
           <Footer />
         </Providers>
       </body>

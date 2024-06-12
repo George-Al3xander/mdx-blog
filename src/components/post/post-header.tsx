@@ -34,11 +34,11 @@ function PostHeader({
   }
   return (
     <div className={"flex flex-col prose-li:list-none"}>
-      <h1 className={"text-8xl"}>{title}</h1>
-      <div className="flex gap-4">
+      <h1 className={"text-4xl sm:text-6xl md:text-8xl"}>{title}</h1>
+      <div className="flex flex-col gap-4 sm:flex-row">
         <ul
           className={
-            "m-0 flex basis-[40%] flex-wrap justify-between gap-4 text-sm"
+            "m-0 flex basis-[40%] flex-wrap gap-4 p-0 text-sm sm:justify-between"
           }
         >
           {infoItems.map(({ name, children }) => (

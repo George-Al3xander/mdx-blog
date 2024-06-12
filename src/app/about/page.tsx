@@ -1,20 +1,30 @@
-import AboutPerson from "@/components/sections/about/about-person"
-import { aboutPageInfo } from "@/data"
 import React from "react"
+import Image from "next/image"
+
+import StoryGridSection from "@/components/sections/about/grid/story-grid-section"
 
 const AboutPage = () => {
   return (
-    <section className="w-responsive-lg mx-auto mb-10 md:mb-0  md:h-[calc(100vh-12.2rem)]">
-      <h3 className="text-3xl md:text-5xl font-extrabold capitalize py-6">
-        About Me
-      </h3>
-      <hr className="h-8 my-4" />
-      <ul className="flex flex-col gap-10 md:flex-row">
-        <AboutPerson />
-        <p className="opacity-60 text-lg font-semibold">
-          {aboutPageInfo.description}
-        </p>
-      </ul>
+    <section>
+      <div className="last-article relative my-0 mt-10 flex h-[calc(100vh-5rem)] overflow-hidden py-4 text-center">
+        <span className="-mx-auto absolute inset-y-0 -z-10 h-full w-full opacity-70 blur-sm">
+          <Image
+            width={1920}
+            className={"max-w-[50rem] md:max-w-full md:object-cover"}
+            height={1280}
+            src={"/assets/img/bg_about_page.jpg"}
+            alt={"Hero section background"}
+          />
+        </span>
+        <div className="z-10 mx-auto flex w-responsive-lg flex-col items-center justify-center gap-4">
+          <h2 className="text-4xl font-extrabold md:text-7xl">
+            Unlock the Power of Knowledge
+          </h2>
+        </div>
+      </div>
+      <div className="mx-auto w-responsive-lg">
+        <StoryGridSection />
+      </div>
     </section>
   )
 }

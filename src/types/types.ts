@@ -1,14 +1,12 @@
 import { ButtonProps } from "@/components/ui/button"
 import { Document } from "mongoose"
 
-
-
 export type ThemeVariant = "light" | "dark" | "system"
 
 export type HeroData = {
   title: string
-  description: string,
-  subtitle?: string,
+  description: string
+  subtitle?: string
   buttons: ButtonProps[]
 }
 
@@ -18,6 +16,7 @@ export type PageParamsProps = {
   }
   searchParams?: {
     page?: string
+    searchQuery?: string
   }
 }
 

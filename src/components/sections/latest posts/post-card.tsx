@@ -17,7 +17,12 @@ const PostCard = ({
         "last-article pointer-events-none": isLast,
       })}
     >
-      <h3 className="text-2xl font-bold">{title}</h3>
+      <Link
+        className={"self-start transition-all hover:opacity-60"}
+        href={`/posts/${_id}`}
+      >
+        <h3 className="text-2xl font-bold">{title}</h3>
+      </Link>
       <TagsList tags={tags} />
       <p className="opacity-60">
         {description ? description : "There is no description for this post"}

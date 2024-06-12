@@ -1,0 +1,86 @@
+.story-grid-section h3  {
+    text-transform: capitalize;
+    font-size: 1.25rem;
+}
+
+.story-grid-section h3, h4 {
+    font-weight: bold;
+}
+
+.story-grid-section p {
+    opacity: 75%;
+    font-weight: 600;
+}
+
+.story-grid-section  {
+    display:grid;
+    gap:2rem;
+}
+
+.story-grid-section li:not(:first-child) {
+    padding: 2rem;
+
+}
+
+.story-grid-section li {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    overflow: hidden;
+    justify-content: center;
+}
+
+#one {
+    grid-area: one;
+    padding: 1rem;
+}
+
+#two {
+    grid-area: two;
+    background-color: gainsboro;
+    color: black;
+}
+
+#three {
+    grid-area: three;
+    color: white;
+    justify-content: flex-end;
+}
+
+#four {
+    grid-area: four;
+    background-color: greenyellow;
+    color: black;
+}
+
+
+.mission-block{
+    background-position: top;
+    background-repeat: no-repeat;
+    background-image:
+            linear-gradient(to bottom, rgba(0,0,205, .52), rgba(0, 0, 0, 0.73)),
+            url('../../../../../public/assets/img/ph_about_2.jpg');
+    /*width: 80%;*/
+    /*height: 400px;*/
+    /*background-size: cover;*/
+    /*color: white;*/
+    /*padding: 20px;*/
+}
+
+.story-grid-section {
+    grid-template-areas:
+    "one"
+    "two"
+    "three"
+    "four";
+}
+
+@media (min-width: 850px) {
+    .story-grid-section {
+        grid-template-areas:
+        "one three"
+        "two three"
+        "two four"
+        ;
+    }
+}
