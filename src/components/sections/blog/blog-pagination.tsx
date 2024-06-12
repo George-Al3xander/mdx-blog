@@ -10,12 +10,12 @@ import {
 } from "@/components/ui/pagination"
 import { cn } from "@/lib/utils"
 import { generatePageNumbers } from "@/mylib/utils"
-
+import { PER_PAGE } from "@/data"
 
 const BlogPagination = ({
   page,
   totalCount,
-  perPage = "5",
+  perPage = `${PER_PAGE}`,
 }: {
   page: string | number
   totalCount: number

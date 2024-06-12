@@ -4,30 +4,29 @@ import React from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useSearch } from "@/hooks/useSearch"
-import { X } from "lucide-react"
+import { Search, X } from "lucide-react"
 
 function SearchInput() {
   //console.log(currSearchQuery)
   const { search, isValid, searchQuery, handleChange, clear } = useSearch()
   return (
-    <form
-      onSubmit={search}
-      className="flex w-full max-w-sm items-center space-x-2"
-    >
-      <Input
-        defaultValue={searchQuery}
-        value={searchQuery}
-        onChange={handleChange}
-        className="bg-gray-900"
-        type="text"
-        placeholder="Search articles..."
-      />
-      <Button disabled={!isValid} type="submit">
-        Search
-      </Button>
-      <Button onClick={clear} variant="destructive" size="icon">
-        <X className="h-4 w-4" />
-      </Button>
+    <form onSubmit={search} className="w-full">
+      <fieldset className="flex w-full items-center gap-2 rounded-lg border-2 border-black bg-white p-2 dark:border-white dark:bg-black">
+        <label htmlFor="search-input">
+          <Search />
+        </label>
+        <input
+          onChange={handleChange}
+          value={searchQuery}
+          placeholder="Search for anyting...!"
+          className="w-[10px] basis-[100%] bg-white outline-none dark:bg-black"
+          id="search-input"
+          type="text"
+        />
+        <Button type="reset" size="sm" onClick={clear}>
+          <X />
+        </Button>
+      </fieldset>
     </form>
   )
 }

@@ -19,7 +19,7 @@ const PostCard = ({
     >
       <Link
         className={"self-start transition-all hover:opacity-60"}
-        href={`/posts/${_id}`}
+        href={`/posts/articles/${_id}`}
       >
         <h3 className="text-2xl font-bold">{title}</h3>
       </Link>
@@ -47,7 +47,7 @@ const PostCard = ({
           asChild
         >
           <li>
-            <Link className={"flex gap-2"} href={`/posts/${_id}`}>
+            <Link className={"flex gap-2"} href={`/posts/articles/${_id}`}>
               Read more <CornerRightUp className="h-4 w-4" />
             </Link>
           </li>

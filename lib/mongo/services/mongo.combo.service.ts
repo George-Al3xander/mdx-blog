@@ -70,6 +70,8 @@ export class MongoComboService<T extends Document> {
       return []
     }
   }
+
+  @ConnectToMongo()
   async getCount(): Promise<number> {
     const pipeline: PipelineStage[] = this.docTypeUnionWith.concat([
       {

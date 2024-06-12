@@ -12,21 +12,25 @@ export const useSearch = () => {
   const [isValid, setIsValid] = React.useState(false)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setSearchQuery(event.target.value)
+
+  const clear = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    if (e) {
+      e.preventDefault()
+    }
+    setSearchQuery("")
+    const newSearchParams = new URLSearchParams(currSearchParams)
+    newSearchParams.delete("searchQuery")
+    router.push(`?${newSearchParams.toString()}`)
+  }
+
   const search = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (isValid) {
       const newSearchParams = new URLSearchParams(currSearchParams)
       newSearchParams.set("searchQuery", slug(searchQuery))
       router.push(`?${newSearchParams.toString()}`)
+      setSearchQuery("")
     }
-  }
-
-  const clear = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    setSearchQuery("")
-    const newSearchParams = new URLSearchParams(currSearchParams)
-    newSearchParams.delete("searchQuery")
-    router.push(`?${newSearchParams.toString()}`)
   }
 
   useEffect(() => {

@@ -13,7 +13,7 @@ const TagsList = ({ tags }: { tags: string[] }) => {
               variant: "default",
               className: "capitalize",
             })}
-            href={`/posts?tags=${slug(tag)}`}
+            href={`/posts?searchQuery=${slug(tag)}`}
           >
             {tag}
           </Link>
