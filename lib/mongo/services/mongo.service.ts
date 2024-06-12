@@ -1,37 +1,9 @@
-import mongoose, { ConnectOptions, Model, Document } from "mongoose"
+import { Model, Document, PipelineStage } from "mongoose"
+import { PER_PAGE } from "@/data"
+import { ConnectToMongo } from "@/mylib/mongo/utils"
 
 type SortFilter = {
   [key: string]: "asc" | "desc"
-}
-
-const uri = process.env.MONGO_URI!
-
-const clientOptions: ConnectOptions = {
-  serverApi: { version: "1", strict: false, deprecationErrors: true },
-}
-
-function ConnectToMongo() {
-  return function (
-    _target: any,
-    _propertyKey: string,
-    descriptor: PropertyDescriptor,
-  ) {
-    const { value } = descriptor
-    descriptor.value = async function (...args: any[]) {
-      if (mongoose.connection.readyState == 0) {
-        try {
-          await mongoose.connect(uri, clientOptions)
-          await mongoose.connection.db.admin().command({ ping: 1 })
-          console.log("You successfully connected to MongoDB!")
-        } catch (error) {
-          console.error("Error connecting to MongoDB:", error)
-          return
-        }
-      }
-      const out = await value.apply(this, args)
-      return out
-    }
-  }
 }
 
 export class MongoService<T extends Document> {
@@ -42,8 +14,8 @@ export class MongoService<T extends Document> {
   }
 
   @ConnectToMongo()
-  async findById(id: string): Promise<T | null> {
-    return await this.mongoModel.findById(id)
+  findById(id: string): Promise<T | null> {
+    return this.mongoModel.findById(id)
   }
 
   @ConnectToMongo()
@@ -54,7 +26,7 @@ export class MongoService<T extends Document> {
   ): Promise<T[]> {
     page = typeof page == "number" ? page : Number(page)
     page = Math.floor(page)
-    const perPage = 5
+    const perPage = PER_PAGE
     const skip = (page - 1) * perPage
 
     try {
@@ -74,8 +46,55 @@ export class MongoService<T extends Document> {
   }
 
   @ConnectToMongo()
-  async getCount(): Promise<number> {
-    const count = await this.mongoModel.countDocuments()
-    return count
+  getCount(): Promise<number> {
+    return this.mongoModel.countDocuments()
+  }
+
+  @ConnectToMongo()
+  async combineCollections(
+    source: string,
+    target: string | string[],
+    page: string | number,
+    searchQuery?: string | undefined,
+  ): Promise<any[]> {
+    page = typeof page == "number" ? page : Number(page)
+    page = Math.floor(page)
+    const perPage = PER_PAGE
+    const skip = (page - 1) * perPage
+    let unionWith: PipelineStage[] = []
+
+    if (typeof target === "string") {
+      unionWith.push({
+        $unionWith: {
+          coll: target,
+          pipeline: [{ $match: {} }, { $addFields: { source: target } }],
+        },
+      })
+    } else {
+      target.forEach((target_item: string) =>
+        unionWith.push({
+          $unionWith: {
+            coll: target_item,
+            pipeline: [{ $match: {} }, { $addFields: { source: target_item } }],
+          },
+        }),
+      )
+    }
+    //@ts-ignore
+    const pipeline: PipelineStage[] = unionWith.concat([
+      {
+        $addFields: { source },
+      },
+      { $sort: { date: -1 } },
+      { $skip: skip },
+      { $limit: perPage },
+    ])
+    try {
+      const results = await this.mongoModel.aggregate(pipeline)
+      return results
+    } catch (err) {
+      console.error("Error fetching combined documents:", err)
+      return []
+    }
   }
 }
