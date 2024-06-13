@@ -34,9 +34,46 @@ export const generatePageNumbers = (
   return pages
 }
 
-export function estimateReadingTime(text: string) {
+export const estimateReadingTime = (text: string) => {
   const wpm = 200
   const words = text.trim().split(/\s+/).length
   const time = Math.ceil(words / wpm)
   return time
+}
+
+export const addSearchParam = (
+  oldSearchParams: URLSearchParams | string | { [key: string]: string },
+  newParam: { key: string; value: string },
+): string => {
+  if (
+    typeof oldSearchParams === "string" ||
+    typeof oldSearchParams === "object"
+  ) {
+    oldSearchParams = new URLSearchParams(oldSearchParams)
+  }
+  const { key, value } = newParam
+  const newSearchParams = new URLSearchParams(oldSearchParams)
+  newSearchParams.set(key, value)
+
+  return newSearchParams.toString()
+}
+
+export const removeSearchParam = (
+  oldSearchParams: URLSearchParams,
+  key: string,
+): string => {
+  const newSearchParams = new URLSearchParams(oldSearchParams)
+  newSearchParams.delete(key)
+
+  return newSearchParams.toString()
+}
+
+export const changePageParam = (
+  oldSearchParams: URLSearchParams | string,
+  page: string | number,
+): string => {
+  return addSearchParam(oldSearchParams, {
+    key: "page",
+    value: page.toString(),
+  })
 }

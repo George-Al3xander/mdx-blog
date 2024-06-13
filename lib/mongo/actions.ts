@@ -3,6 +3,7 @@ import { MongoService, Post, Program } from "@/mylib/mongo"
 import { TPost } from "@/types/types"
 import { MongoComboService } from "@/mylib/mongo/services/mongo.combo.service"
 const postService = new MongoService<TPost>(Post)
+const programService = new MongoService<any>(Program)
 const postsWithPrograms = new MongoComboService<TPost>(
   Post,
   "posts",
@@ -13,6 +14,11 @@ export const getPosts = async (
   page: string | number,
   searchQuery?: string,
 ): Promise<TPost[]> => await postService.findAll(page, searchQuery)
+
+export const getPrograms = async (
+  page: string | number,
+  searchQuery?: string,
+): Promise<TPost[]> => await programService.findAll(page, searchQuery)
 
 export const getPostCount = async (): Promise<number> =>
   await postService.getCount()

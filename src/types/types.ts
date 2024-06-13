@@ -11,6 +11,7 @@ export type HeroData = {
 }
 
 export type PageParamsProps = {
+  pathname: string
   params?: {
     num?: string
   }

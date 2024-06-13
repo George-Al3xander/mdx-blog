@@ -1,6 +1,7 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import React, { useEffect } from "react"
 import { slug } from "github-slugger"
+import { addSearchParam, removeSearchParam } from "@/mylib/utils"
 
 export const useSearch = () => {
   const router = useRouter()
@@ -18,17 +19,19 @@ export const useSearch = () => {
       e.preventDefault()
     }
     setSearchQuery("")
-    const newSearchParams = new URLSearchParams(currSearchParams)
-    newSearchParams.delete("searchQuery")
+    const newSearchParams = removeSearchParam(currSearchParams, "searchQuery")
     router.push(`?${newSearchParams.toString()}`)
   }
 
   const search = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (isValid) {
-      const newSearchParams = new URLSearchParams(currSearchParams)
-      newSearchParams.set("searchQuery", slug(searchQuery))
-      router.push(`?${newSearchParams.toString()}`)
+      const newSearchParams = addSearchParam(currSearchParams, {
+        key: "searchQuery",
+        value: slug(searchQuery),
+      })
+
+      router.push(`?${newSearchParams}`)
       setSearchQuery("")
     }
   }
