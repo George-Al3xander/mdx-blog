@@ -32,11 +32,12 @@ export class MongoService<T extends Document> {
     try {
       if (searchQuery) {
         await this.mongoModel.createIndexes()
-        return await this.mongoModel.find({
-          $text: { $search: searchQuery, $caseSensitive: false },
-        })
-        // .skip(skip)
-        // .limit(perPage)
+        return await this.mongoModel
+          .find({
+            $text: { $search: searchQuery, $caseSensitive: false },
+          })
+          .skip(skip)
+          .limit(perPage)
       }
       return this.mongoModel.find().sort(sortFilter).limit(perPage).skip(skip)
     } catch (error) {
@@ -48,53 +49,5 @@ export class MongoService<T extends Document> {
   @ConnectToMongo()
   getCount(): Promise<number> {
     return this.mongoModel.countDocuments()
-  }
-
-  @ConnectToMongo()
-  async combineCollections(
-    source: string,
-    target: string | string[],
-    page: string | number,
-    searchQuery?: string | undefined,
-  ): Promise<any[]> {
-    page = typeof page == "number" ? page : Number(page)
-    page = Math.floor(page)
-    const perPage = PER_PAGE
-    const skip = (page - 1) * perPage
-    let unionWith: PipelineStage[] = []
-
-    if (typeof target === "string") {
-      unionWith.push({
-        $unionWith: {
-          coll: target,
-          pipeline: [{ $match: {} }, { $addFields: { source: target } }],
-        },
-      })
-    } else {
-      target.forEach((target_item: string) =>
-        unionWith.push({
-          $unionWith: {
-            coll: target_item,
-            pipeline: [{ $match: {} }, { $addFields: { source: target_item } }],
-          },
-        }),
-      )
-    }
-    //@ts-ignore
-    const pipeline: PipelineStage[] = unionWith.concat([
-      {
-        $addFields: { source },
-      },
-      { $sort: { date: -1 } },
-      { $skip: skip },
-      { $limit: perPage },
-    ])
-    try {
-      const results = await this.mongoModel.aggregate(pipeline)
-      return results
-    } catch (err) {
-      console.error("Error fetching combined documents:", err)
-      return []
-    }
   }
 }

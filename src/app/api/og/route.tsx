@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { ImageResponse } from "next/og"
-import { ogImgPropertyKeys, socialMediaLinks, websiteName } from "@/data"
+import { socialMediaLinks, websiteName } from "@/data"
 import { formatDate } from "@/components/post-date"
 import { TPost } from "@/types/types"
+import { ogImgPropertyKeys } from "@/mylib/og/open-graph-data"
 export const runtime = "edge"
 
 const interBold = fetch(
@@ -14,13 +15,17 @@ export async function GET(req: NextRequest) {
     const fontBold = await interBold
     let postObj: Partial<TPost> = {}
     const { searchParams } = req.nextUrl
+    const postType = searchParams.get("postType")
 
     for (const key of ogImgPropertyKeys) {
+      // if postType && key desc or title
       const value = searchParams.get(key)
       if (value) {
         postObj[key] = value
       } else {
-        throw new Error(`no ${key} provided`)
+        if (postType) {
+          throw new Error(`no ${key} provided`)
+        }
       }
     }
     const { title, description, date, author } = postObj as {
@@ -58,16 +63,21 @@ export async function GET(req: NextRequest) {
             <p tw="ml-2 font-bold text-2xl">{websiteName}</p>
           </div>
           <div tw="flex flex-col flex-1 py-10">
-            <div tw="flex text-xl uppercase font-bold mb-4 tracking-tight font-normal">
-              POST
-            </div>
+            {postType && (
+              <div tw="flex text-xl uppercase font-bold mb-4 tracking-tight font-normal">
+                {postType.substring(0, postType.length - 1)}
+              </div>
+            )}
+
             <div tw="flex text-[80px] font-bold text-[50px] mb-4 ">
               {heading}
             </div>
             <div tw="mb-4 text-2xl opacity-60">{desc}</div>
-            <div tw="opacity-80 text-xl flex">
-              {formatDate(date)}, by {author}
-            </div>
+            {author && (
+              <div tw="opacity-80 text-xl flex">
+                {formatDate(date)}, by {author}
+              </div>
+            )}
           </div>
           <div tw="flex items-center w-full justify-between">
             <div tw="flex text-xl">{process.env.HOST_URL}</div>

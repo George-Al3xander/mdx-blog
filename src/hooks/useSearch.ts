@@ -32,7 +32,6 @@ export const useSearch = () => {
       })
 
       router.push(`?${newSearchParams}`)
-      setSearchQuery("")
     }
   }
 

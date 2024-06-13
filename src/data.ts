@@ -96,11 +96,4 @@ export const aboutPageInfo = {
   `,
 } as const
 
-export const ogImgPropertyKeys = [
-  "title",
-  "date",
-  "description",
-  "author",
-] as const
-
 export const PER_PAGE = 6

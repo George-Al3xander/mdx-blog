@@ -2,24 +2,34 @@ import DateComp from "@/components/post-date"
 import TagsList from "@/components/tags/tags-list"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { TPost } from "@/types/types"
+import { TPost, TProgram } from "@/types/types"
 import { Calendar, CornerRightUp } from "lucide-react"
 import Link from "next/link"
 import React from "react"
 
 const PostCard = ({
-  post: { title, description, _id, date, author, tags },
+  post,
   isLast = false,
-}: { post: TPost } & { isLast?: boolean }) => {
+}: { post: TPost | TProgram } & { isLast?: boolean }) => {
+  const { title, description, _id, date, author, tags } = post
+  const isProgram = Boolean("type" in post)
+
   return (
     <li
       className={cn("item flex flex-col gap-3 text-left", {
         "last-article pointer-events-none": isLast,
       })}
     >
+      <h4
+        className={cn("text-sm capitalize text-blue-500", {
+          "text-orange-500": isProgram,
+        })}
+      >
+        {isProgram ? "training program" : "article"}
+      </h4>
       <Link
         className={"self-start transition-all hover:opacity-60"}
-        href={`/posts/articles/${_id}`}
+        href={`/posts/${isProgram ? "programs" : "articles"}/${_id}`}
       >
         <h3 className="text-2xl font-bold">{title}</h3>
       </Link>
@@ -47,7 +57,10 @@ const PostCard = ({
           asChild
         >
           <li>
-            <Link className={"flex gap-2"} href={`/posts/articles/${_id}`}>
+            <Link
+              className={"flex gap-2"}
+              href={`/posts/${isProgram ? "programs" : "articles"}/${_id}`}
+            >
               Read more <CornerRightUp className="h-4 w-4" />
             </Link>
           </li>
