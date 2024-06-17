@@ -1,3 +1,5 @@
+import { navLinks } from "@/data"
+
 export const generatePageNumbers = (
   totalPages: number,
   currentPage: number,
@@ -76,4 +78,19 @@ export const changePageParam = (
     key: "page",
     value: page.toString(),
   })
+}
+
+export const capitalizeStr = (str: string): string =>
+  `${str[0].toUpperCase()}${str.slice(1)}`
+
+export const checkNavRouteIfCurrent = ({
+  link,
+  pathname,
+}: {
+  link: (typeof navLinks)[number]
+  pathname: string
+}): boolean => {
+  const href = link == "home" ? "" : link
+  const split = pathname.split("/")
+  return Boolean(split.length <= 3 && split[1] === href)
 }

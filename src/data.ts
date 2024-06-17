@@ -39,13 +39,7 @@ export const socialMediaData: {
   return { title, Icon, link }
 })
 
-export const navLinks = [
-  "home",
-  "posts",
-  //"programs",
-  // "search",
-  "about",
-] as const
+export const navLinks = ["home", "posts", "about"] as const
 
 export const themesVariants: ThemeVariant[] = ["light", "dark", "system"]
 
