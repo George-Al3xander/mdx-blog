@@ -39,6 +39,10 @@ export type SerializeOptions = {
   parseFrontmatter?: boolean
 }
 
+export type SortFilter = {
+  [key: string]: "asc" | "desc"
+}
+
 export type TPost = Document & {
   _id: string
   title: string

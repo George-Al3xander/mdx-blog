@@ -1,10 +1,7 @@
-import { Model, Document, PipelineStage } from "mongoose"
+import { Model, Document } from "mongoose"
 import { PER_PAGE } from "@/data"
 import { ConnectToMongo } from "@/mylib/mongo/utils"
-
-type SortFilter = {
-  [key: string]: "asc" | "desc"
-}
+import { searchParamToSortFilter } from "@/mylib/utils"
 
 export class MongoService<T extends Document> {
   mongoModel: Model<T>
@@ -22,13 +19,13 @@ export class MongoService<T extends Document> {
   async findAll(
     page: string | number,
     searchQuery?: string | undefined,
-    sortFilter: SortFilter | undefined = { date: "desc" },
+    sortParam: string | undefined = "date-desc",
   ): Promise<T[]> {
     page = typeof page == "number" ? page : Number(page)
     page = Math.floor(page)
     const perPage = PER_PAGE
     const skip = (page - 1) * perPage
-
+    const sortFilter = searchParamToSortFilter(sortParam) as any
     try {
       if (searchQuery) {
         await this.mongoModel.createIndexes()

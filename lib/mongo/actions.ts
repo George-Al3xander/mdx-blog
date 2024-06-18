@@ -14,11 +14,12 @@ export const getPosts = async (
   postType: TPostVariant,
   page: string | number,
   searchQuery?: string,
+  sortFilter?: string,
 ): Promise<TPost[]> => {
   if (postType == "programs") {
-    return await programService.findAll(page, searchQuery)
+    return await programService.findAll(page, searchQuery, sortFilter)
   }
-  return await postService.findAll(page, searchQuery)
+  return await postService.findAll(page, searchQuery, sortFilter)
 }
 
 export const getPostCount = async (
@@ -45,7 +46,8 @@ export const getPostById = async (
 export const getPostsWithPrograms = async (
   page: string | number,
   searchQuery?: string,
-) => await postsWithPrograms.getCollections(page, searchQuery)
+  sortFilter?: string,
+) => await postsWithPrograms.getCollections(page, searchQuery, sortFilter)
 
 export const getPostsProgramsCount = async () =>
   await postsWithPrograms.getCount()

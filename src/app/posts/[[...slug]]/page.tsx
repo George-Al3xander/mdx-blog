@@ -29,12 +29,13 @@ const getPosts = async (
   postType: TPostVariant & "all",
   page: string | number,
   searchQuery?: string,
+  sortBy?: string,
 ) => {
   let posts: any[] = []
   if (postType === "all") {
-    posts = await getPostsWithPrograms(page, searchQuery)
+    posts = await getPostsWithPrograms(page, searchQuery, sortBy)
   } else {
-    posts = await getArticles(postType, page, searchQuery)
+    posts = await getArticles(postType, page, searchQuery, sortBy)
   }
   return posts
 }
@@ -47,6 +48,7 @@ type PostProps = {
     | {
         page?: string | undefined
         searchQuery?: string | undefined
+        sortBy?: string | undefined
       }
     | undefined
 }
@@ -60,7 +62,7 @@ async function MultiPage({
 }: PostProps) {
   const [postType] = slug as [TPostVariant & "all"]
   const page = searchParams.page || "1"
-  const { searchQuery } = searchParams
+  const { searchQuery, sortBy } = searchParams
   if (!allowedPostTypes.includes(postType)) {
     return notFound()
   }
@@ -81,7 +83,7 @@ async function MultiPage({
     const id = slug[1]
     return <PostById id={id} postType={postType} />
   }
-  const posts = await getPosts(postType, page, searchQuery)
+  const posts = await getPosts(postType, page, searchQuery, sortBy)
   return (
     <PostsWithPagination
       paginationOpts={{ page, totalCount, pathname }}

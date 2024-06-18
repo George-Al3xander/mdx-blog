@@ -1,4 +1,5 @@
-import { navLinks } from "@/data"
+import { navLinks, sortOptions } from "@/data"
+import { SortFilter } from "@/types/types"
 
 export const generatePageNumbers = (
   totalPages: number,
@@ -93,4 +94,22 @@ export const checkNavRouteIfCurrent = ({
   const href = link == "home" ? "" : link
   const split = pathname.split("/")
   return Boolean(split.length <= 3 && split[1] === href)
+}
+
+export const searchParamToSortFilter = (
+  param: string,
+  type: "string" | "numeric" | undefined = "string",
+): SortFilter | { [key: string]: number } => {
+  const split = param.split("-")
+  const key = split[0] || "date"
+  if (type === "string") {
+    const value = (split[1] || "desc") as "desc"
+
+    if (sortOptions.map(({ value }) => value).includes(`${key}-${value}`)) {
+      return { [key]: value }
+    }
+    return { date: "desc" }
+  }
+  const value = split[1] === "desc" ? -1 : 1
+  return { [key]: value }
 }
