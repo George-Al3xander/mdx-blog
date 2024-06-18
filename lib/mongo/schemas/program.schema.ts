@@ -23,6 +23,6 @@ export const programSchema = new Schema(
   },
 )
 
-export default mongoose.models!.Post
+export default mongoose.models!.Program
   ? mongoose.models!.Program
   : mongoose.model("Program", programSchema)

@@ -1,6 +1,6 @@
 "use server"
 import { MongoService, Post, Program } from "@/mylib/mongo"
-import { TPost } from "@/types/types"
+import { TPost, TPostVariant } from "@/types/types"
 import { MongoComboService } from "@/mylib/mongo/services/mongo.combo.service"
 const postService = new MongoService<TPost>(Post)
 const programService = new MongoService<any>(Program)
@@ -11,23 +11,41 @@ const postsWithPrograms = new MongoComboService<TPost>(
 )
 
 export const getPosts = async (
+  postType: TPostVariant,
   page: string | number,
   searchQuery?: string,
-): Promise<TPost[]> => await postService.findAll(page, searchQuery)
+): Promise<TPost[]> => {
+  if (postType == "programs") {
+    return await programService.findAll(page, searchQuery)
+  }
+  return await postService.findAll(page, searchQuery)
+}
 
-export const getPrograms = async (
+export const getPostCount = async (
+  postType: TPostVariant,
+  searchQuery?: string,
+): Promise<number> => {
+  if (postType == "programs") {
+    return await programService.getCount(searchQuery)
+  }
+  return await postService.getCount(searchQuery)
+}
+
+export const getPostById = async (
+  postType: TPostVariant,
+  id: string,
+): Promise<TPost | null> => {
+  if (postType == "programs") {
+    return await programService.findById(id)
+  }
+
+  return await postService.findById(id)
+}
+
+export const getPostsWithPrograms = async (
   page: string | number,
   searchQuery?: string,
-): Promise<TPost[]> => await programService.findAll(page, searchQuery)
-
-export const getPostCount = async (): Promise<number> =>
-  await postService.getCount()
-
-export const getPostById = async (id: string): Promise<TPost | null> =>
-  await postService.findById(id)
-
-export const getPostsWithPrograms = async (page: string | number) =>
-  await postsWithPrograms.getCollections(page)
+) => await postsWithPrograms.getCollections(page, searchQuery)
 
 export const getPostsProgramsCount = async () =>
   await postsWithPrograms.getCount()

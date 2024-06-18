@@ -47,7 +47,12 @@ export class MongoService<T extends Document> {
   }
 
   @ConnectToMongo()
-  getCount(): Promise<number> {
+  getCount(searchQuery?: string): Promise<number> {
+    if (searchQuery) {
+      return this.mongoModel.countDocuments({
+        $text: { $search: searchQuery, $caseSensitive: false },
+      })
+    }
     return this.mongoModel.countDocuments()
   }
 }

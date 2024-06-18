@@ -1,6 +1,7 @@
 import { Document, Model, PipelineStage } from "mongoose"
 import { ConnectToMongo } from "@/mylib/mongo/utils"
 import { PER_PAGE } from "@/data"
+import { getPosts } from "@/mylib/mongo/actions"
 
 export class MongoComboService<T extends Document> {
   mongoModel: Model<T>
@@ -64,7 +65,13 @@ export class MongoComboService<T extends Document> {
       { $limit: perPage },
     ])
     try {
-      return await this.mongoModel.aggregate(pipeline)
+      if (searchQuery) {
+        const articles = await getPosts("articles", page, searchQuery)
+        const programs = await getPosts("programs", page, searchQuery)
+        return [...articles, ...programs]
+      } else {
+        return await this.mongoModel.aggregate(pipeline)
+      }
     } catch (err) {
       console.error("Error fetching combined documents:", err)
       return []
