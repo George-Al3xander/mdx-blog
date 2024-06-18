@@ -18,7 +18,6 @@ export async function GET(req: NextRequest) {
     const postType = searchParams.get("postType")
 
     for (const key of ogImgPropertyKeys) {
-      // if postType && key desc or title
       const value = searchParams.get(key)
       if (value) {
         postObj[key] = value

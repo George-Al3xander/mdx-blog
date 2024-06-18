@@ -40,6 +40,7 @@ export type SerializeOptions = {
 }
 
 export type TPost = Document & {
+  _id: string
   title: string
   description: string
   content: string
@@ -56,3 +57,5 @@ export type TProgram = TPost & {
   type: "strength" | "hypertrophy" | "mixed"
   file?: string
 }
+
+export type TPostVariant = "articles" | "programs"

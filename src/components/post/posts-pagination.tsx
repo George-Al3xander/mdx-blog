@@ -7,35 +7,37 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/ui/pagination"
 import { cn } from "@/lib/utils"
 import { generatePageNumbers } from "@/mylib/utils"
 import { PER_PAGE } from "@/data"
 
-const BlogPagination = ({
+const PostsPagination = ({
   page,
   totalCount,
   perPage = `${PER_PAGE}`,
+  pathname,
 }: {
   page: string | number
   totalCount: number
+  pathname: string
   perPage?: string | number
 }) => {
   page = Number(page)
   perPage = Number(perPage)
-  const pagesCount = Math.floor(totalCount / perPage) + 1
+  const pagesCount = Math.ceil(totalCount / perPage)
 
   const pages = generatePageNumbers(pagesCount, page)
-
+  if (pagesCount < 2) return null
   return (
-    <Pagination>
+    <Pagination className="my-16">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
             aria-disabled={page <= 1}
             tabIndex={page <= 1 ? -1 : undefined}
             className={cn({ "pointer-events-none opacity-50": page <= 1 })}
-            href={`/blog?page=${page - 1}`}
+            href={`${pathname}?page=${page - 1}`}
           />
         </PaginationItem>
         {pages.map((pageCustom, index) => {
@@ -51,7 +53,7 @@ const BlogPagination = ({
             return (
               <PaginationItem key={key}>
                 <PaginationLink
-                  href={`/blog?page=${pageCustom}`}
+                  href={`${pathname}?page=${pageCustom}`}
                   isActive={isActive}
                 >
                   {pageCustom}
@@ -62,7 +64,7 @@ const BlogPagination = ({
         })}
         <PaginationItem>
           <PaginationNext
-            href={`/blog?page=${page + 1}`}
+            href={`${pathname}?page=${page + 1}`}
             aria-disabled={page >= pagesCount}
             tabIndex={page >= pagesCount ? -1 : undefined}
             className={cn({
@@ -75,4 +77,4 @@ const BlogPagination = ({
   )
 }
 
-export default BlogPagination
+export default PostsPagination

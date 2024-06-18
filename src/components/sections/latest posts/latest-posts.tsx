@@ -4,15 +4,11 @@ import PostCard from "./post-card"
 import { Button } from "@/ui/button"
 
 import Link from "next/link"
-import { getPosts,  } from "@/mylib/mongo/actions"
-import { MongoService, Post } from "@/mylib/mongo"
+import { getPosts } from "@/mylib/mongo/actions"
 import { TPost } from "@/types/types"
 
 const LatestPosts = async () => {
-
-
-  //const posts: TPost[] = await getPosts(1)
-  const posts: TPost[] = await new MongoService(Post).findAll(1)
+  const posts: TPost[] = await getPosts("articles", 1)
 
   return (
     <section className="mb-10">

@@ -16,11 +16,12 @@ import { genPageMetadata } from "@/mylib/og/open-graph-data"
 
 const getTotalCount = async (
   postType: TPostVariant & "all",
+  searchQuery?: string,
 ): Promise<number> => {
   if (postType === "all") {
     return await getPostsProgramsCount()
   } else {
-    return await getPostCount(postType)
+    return await getPostCount(postType, searchQuery)
   }
 }
 
@@ -63,10 +64,10 @@ async function MultiPage({
   if (!allowedPostTypes.includes(postType)) {
     return notFound()
   }
-  const totalCount = await getTotalCount(postType)
-  const pagesCount = Math.floor(totalCount / PER_PAGE) + 1
+  const totalCount = await getTotalCount(postType, searchQuery)
+  const pagesCount = Math.ceil(totalCount / PER_PAGE)
 
-  const pathname = postType === "all" ? "/posts" : `/posts/${slug[1]}`
+  const pathname = `/posts/${postType === "all" ? "" : postType}`
 
   if (Number(page) > pagesCount) {
     return redirect(
@@ -81,8 +82,12 @@ async function MultiPage({
     return <PostById id={id} postType={postType} />
   }
   const posts = await getPosts(postType, page, searchQuery)
-
-  return <PostsWithPagination posts={posts} />
+  return (
+    <PostsWithPagination
+      paginationOpts={{ page, totalCount, pathname }}
+      posts={posts}
+    />
+  )
 }
 
 export default MultiPage

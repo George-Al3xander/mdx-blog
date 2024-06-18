@@ -1,7 +1,6 @@
 import React from "react"
 import Logo from "../logo"
 import Nav from "./nav/nav"
-import SocialMediaLinks from "../social-media-links"
 import MobileMenu from "../mobile menu/mobile-menu"
 import ThemeSwitchMenu from "../theme switch menu/theme-switch-menu"
 

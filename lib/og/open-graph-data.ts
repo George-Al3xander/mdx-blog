@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { TPostVariant } from "@/types/types"
 import { websiteName } from "@/data"
 import { getPostById } from "@/mylib/mongo/actions"
+import { capitalizeStr } from "@/mylib/utils"
 
 export const ogImgPropertyKeys = [
   "title",
@@ -33,9 +34,9 @@ export async function genPageMetadata({
 }: {
   params: { slug?: string[] }
 }): Promise<Metadata> {
-  const [postType] = slug as [TPostVariant & "all"]
+  const [postType] = slug as [TPostVariant | "all"]
 
-  if (slug.length == 1) {
+  if (slug.length == 1 || postType == "all") {
     const { title } = pagesMetaData[postType]
     const { description } = pagesMetaData[postType]
     const ogSearchParams = new URLSearchParams()
@@ -44,7 +45,7 @@ export async function genPageMetadata({
     ogSearchParams.set("description", description)
 
     return {
-      title: `${postType == "all" ? "Posts" : postType} | ${websiteName}`,
+      title: `${postType == "all" ? "Posts" : capitalizeStr(postType)} | ${websiteName}`,
       description,
       authors: { name: "George V." },
       openGraph: {
