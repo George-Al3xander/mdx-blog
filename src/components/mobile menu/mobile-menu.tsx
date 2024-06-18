@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from "@/ui/sheet"
 import { Button } from "@/ui/button"
-import { Home, LucideIcon, Menu, BookText, Info } from "lucide-react"
+import { Home, type LucideIcon, Menu, BookText, Info } from "lucide-react"
 import Logo from "../logo"
 import { navLinks } from "@/data"
 import Link from "next/link"
@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation"
 import { checkNavRouteIfCurrent } from "@/mylib/utils"
 import { cn } from "@/lib/utils"
 
-const icons: { [K in (typeof navLinks)[number]]: LucideIcon } = {
+const icons: Record<(typeof navLinks)[number], LucideIcon> = {
   home: Home,
   posts: BookText,
   about: Info,

@@ -9,8 +9,8 @@ import {
 import { changePageParam } from "@/mylib/utils"
 import { PER_PAGE } from "@/data"
 import { TPostVariant } from "@/types/types"
-import PostsWithPagination from "@/components/posts-with-pagination"
-import PostById from "@/components/post-by-id"
+import PostsWithPagination from "@/components/post/posts-with-pagination"
+import PostById from "@/components/post/post-by-id"
 
 import { genPageMetadata } from "@/mylib/og/open-graph-data"
 

@@ -1,4 +1,4 @@
-import DateComp from "@/components/post-date"
+import DateComp from "@/components/post/post-date"
 import TagsList from "@/components/tags/tags-list"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"

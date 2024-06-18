@@ -3,8 +3,6 @@ import React, { ReactNode } from "react"
 import TemplateNav from "@/components/post/template/template-nav"
 import SearchInput from "@/components/search input/search-input"
 import { usePathname, useSearchParams } from "next/navigation"
-import { Button } from "@/ui/button"
-import { Eraser } from "lucide-react"
 import SortMenu from "@/components/sort menu/sort-menu"
 
 function PostsTemplate({ children }: { children: ReactNode }) {

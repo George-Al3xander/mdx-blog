@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { ImageResponse } from "next/og"
-import { socialMediaLinks, websiteName } from "@/data"
-import { formatDate } from "@/components/post-date"
+import { websiteName } from "@/data"
+import { formatDate } from "@/components/post/post-date"
 import { TPost } from "@/types/types"
 import { ogImgPropertyKeys } from "@/mylib/og/open-graph-data"
 export const runtime = "edge"
@@ -27,9 +27,10 @@ export async function GET(req: NextRequest) {
         }
       }
     }
-    const { title, description, date, author } = postObj as {
-      [K in (typeof ogImgPropertyKeys)[number]]: string
-    }
+    const { title, description, date, author } = postObj as Record<
+      (typeof ogImgPropertyKeys)[number],
+      string
+    >
 
     const heading = title.length > 140 ? `${title.substring(0, 140)}...` : title
     const desc =
@@ -48,9 +49,9 @@ export async function GET(req: NextRequest) {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="lucide lucide-dumbbell"
             >
               <path d="M14.4 14.4 9.6 9.6" />
@@ -80,9 +81,9 @@ export async function GET(req: NextRequest) {
           </div>
           <div tw="flex items-center w-full justify-between">
             <div tw="flex text-xl">{process.env.HOST_URL}</div>
-            <div tw="flex items-center text-xl">
-              <div tw="flex ml-2">{socialMediaLinks.github}</div>
-            </div>
+            {/*<div tw="flex items-center text-xl">*/}
+            {/*  <div tw="flex ml-2">{socialMediaLinks.github}</div>*/}
+            {/*</div>*/}
           </div>
         </div>
       ),
