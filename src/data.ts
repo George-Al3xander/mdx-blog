@@ -91,3 +91,8 @@ export const aboutPageInfo = {
 } as const
 
 export const PER_PAGE = 6
+
+export const sortOptions: { value: string; title: string }[] = [
+  { title: "Date created(newest first)", value: "date-desc" },
+  { title: "Date created(oldest first)", value: "date-asc" },
+]

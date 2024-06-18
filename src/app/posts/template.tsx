@@ -5,6 +5,7 @@ import SearchInput from "@/components/search input/search-input"
 import { usePathname, useSearchParams } from "next/navigation"
 import { Button } from "@/ui/button"
 import { Eraser } from "lucide-react"
+import SortMenu from "@/components/sort menu/sort-menu"
 
 function PostsTemplate({ children }: { children: ReactNode }) {
   const pathname = usePathname()
@@ -19,6 +20,7 @@ function PostsTemplate({ children }: { children: ReactNode }) {
       <h3 className="mb-20 text-4xl font-bold">What are you looking for?</h3>
       <TemplateNav currentPath={currentPath} />
       <SearchInput />
+      <SortMenu />
       <div className="mb-6 mt-16 flex items-center justify-between text-2xl">
         <h2 className="font-semibold capitalize">
           {searchQuery
