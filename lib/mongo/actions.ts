@@ -1,7 +1,7 @@
 "use server"
-import { MongoService, Post, Program } from "@/mylib/mongo"
+import { MongoService, Post, Program, MongoComboService } from "@/lib/mongo"
 import { TPost, TPostVariant } from "@/types/types"
-import { MongoComboService } from "@/mylib/mongo/services/mongo.combo.service"
+
 const postService = new MongoService<TPost>(Post)
 const programService = new MongoService<any>(Program)
 const postsWithPrograms = new MongoComboService<TPost>(

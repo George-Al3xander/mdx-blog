@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 import { TPostVariant } from "@/types/types"
 import { websiteName } from "@/data"
-import { getPostById } from "@/mylib/mongo/actions"
-import { capitalizeStr } from "@/mylib/utils"
+import { getPostById } from "@/lib/mongo/actions"
+import { capitalizeStr } from "@/lib/utils"
 
 export const ogImgPropertyKeys = [
   "title",

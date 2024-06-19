@@ -4,7 +4,7 @@ import PostCard from "./post-card"
 import { Button } from "@/ui/button"
 
 import Link from "next/link"
-import { getPosts } from "@/mylib/mongo/actions"
+import { getPosts } from "@/lib/mongo/actions"
 import { TPost } from "@/types/types"
 
 const LatestPosts = async () => {

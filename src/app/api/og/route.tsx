@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og"
 import { websiteName } from "@/data"
 import { formatDate } from "@/components/post/post-date"
 import { TPost } from "@/types/types"
-import { ogImgPropertyKeys } from "@/mylib/og/open-graph-data"
+import { ogImgPropertyKeys } from "@/lib/og/open-graph-data"
 export const runtime = "edge"
 
 const interBold = fetch(

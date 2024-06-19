@@ -1,6 +1,6 @@
 import React from "react"
 import { TPostVariant } from "@/types/types"
-import { getPostById } from "@/mylib/mongo/actions"
+import { getPostById } from "@/lib/mongo/actions"
 import { notFound } from "next/navigation"
 import PostHeader from "@/components/post/post-header"
 import { Markdown } from "@/components/markdown"

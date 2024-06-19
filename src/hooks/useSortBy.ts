@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation"
 import { sortOptions } from "@/data"
-import { addSearchParam } from "@/mylib/utils"
+import { addSearchParam } from "@/lib/utils"
 
 const useSortBy = () => {
   const searchParams = useSearchParams()

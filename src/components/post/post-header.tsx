@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 import { TPost } from "@/types/types"
-import { estimateReadingTime } from "@/mylib/utils"
+import { estimateReadingTime } from "@/lib/utils"
 import Link from "next/link"
 
 function PostHeader({

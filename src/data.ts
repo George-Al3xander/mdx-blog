@@ -1,10 +1,4 @@
-import {
-  Github,
-  Linkedin,
-  Dumbbell,
-  type LucideProps,
-  Newspaper,
-} from "lucide-react"
+import { Dumbbell, Newspaper } from "lucide-react"
 import { HeroData, ThemeVariant } from "./types/types"
 import Link from "next/link"
 import React from "react"

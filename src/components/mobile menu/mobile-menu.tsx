@@ -14,8 +14,7 @@ import Logo from "../logo"
 import { navLinks } from "@/data"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { checkNavRouteIfCurrent } from "@/mylib/utils"
-import { cn } from "@/lib/utils"
+import { cn, checkNavRouteIfCurrent } from "@/lib/utils"
 
 const icons: Record<(typeof navLinks)[number], LucideIcon> = {
   home: Home,

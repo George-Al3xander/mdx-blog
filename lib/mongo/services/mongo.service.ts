@@ -1,7 +1,7 @@
 import { Model, Document } from "mongoose"
 import { PER_PAGE } from "@/data"
-import { ConnectToMongo } from "@/mylib/mongo/utils"
-import { searchParamToSortFilter } from "@/mylib/utils"
+import { ConnectToMongo } from "@/lib/mongo/utils"
+import { searchParamToSortFilter } from "@/lib/utils"
 
 export class MongoService<T extends Document> {
   mongoModel: Model<T>

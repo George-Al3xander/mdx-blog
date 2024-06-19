@@ -1,8 +1,8 @@
 import { Document, Model, PipelineStage } from "mongoose"
-import { ConnectToMongo } from "@/mylib/mongo/utils"
+import { ConnectToMongo } from "@/lib/mongo/utils"
 import { PER_PAGE } from "@/data"
-import { getPosts } from "@/mylib/mongo/actions"
-import { searchParamToSortFilter } from "@/mylib/utils"
+import { getPosts } from "@/lib/mongo/actions"
+import { searchParamToSortFilter } from "@/lib/utils"
 
 export class MongoComboService<T extends Document> {
   mongoModel: Model<T>

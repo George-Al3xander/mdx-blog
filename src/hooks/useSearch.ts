@@ -1,7 +1,7 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import React, { useEffect } from "react"
 import { slug } from "github-slugger"
-import { addSearchParam, removeSearchParam } from "@/mylib/utils"
+import { addSearchParam, removeSearchParam } from "@/lib/utils"
 
 export const useSearch = () => {
   const router = useRouter()

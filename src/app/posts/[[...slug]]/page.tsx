@@ -5,14 +5,14 @@ import {
   getPosts as getArticles,
   getPostsProgramsCount,
   getPostsWithPrograms,
-} from "@/mylib/mongo/actions"
-import { changePageParam } from "@/mylib/utils"
+} from "@/lib/mongo/actions"
+import { changePageParam } from "@/lib/utils"
 import { PER_PAGE } from "@/data"
 import { TPostVariant } from "@/types/types"
 import PostsWithPagination from "@/components/post/posts-with-pagination"
 import PostById from "@/components/post/post-by-id"
 
-import { genPageMetadata } from "@/mylib/og/open-graph-data"
+import { genPageMetadata } from "@/lib/og/open-graph-data"
 
 const getTotalCount = async (
   postType: TPostVariant & "all",

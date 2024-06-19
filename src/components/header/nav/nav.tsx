@@ -1,10 +1,10 @@
 "use client"
 import { navLinks } from "@/data"
-import { cn } from "@/lib/utils"
+import { cn } from "@/shadcn-lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from "react"
-import { checkNavRouteIfCurrent } from "@/mylib/utils"
+import { checkNavRouteIfCurrent } from "@/lib/utils"
 
 const Nav = () => {
   const pathname = usePathname()
@@ -15,16 +15,18 @@ const Nav = () => {
         {navLinks.map((link) => {
           const isMainSection = checkNavRouteIfCurrent({ link, pathname })
           return (
-            <li
-              className={cn(
-                "text-bold uppercase opacity-60 transition-all hover:cursor-pointer hover:opacity-100",
-                {
-                  "opacity-100": isMainSection,
-                },
-              )}
-              key={link}
-            >
-              <Link href={"/" + `${link === "home" ? "" : link}`}>{link}</Link>
+            <li key={link}>
+              <Link
+                className={cn(
+                  "text-bold uppercase opacity-60 transition-all hover:cursor-pointer hover:opacity-100",
+                  {
+                    "opacity-100": isMainSection,
+                  },
+                )}
+                href={"/" + `${link === "home" ? "" : link}`}
+              >
+                {link}
+              </Link>
             </li>
           )
         })}

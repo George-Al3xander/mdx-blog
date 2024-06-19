@@ -9,7 +9,7 @@ import {
   PaginationPrevious,
 } from "@/ui/pagination"
 import { cn } from "@/lib/utils"
-import { generatePageNumbers } from "@/mylib/utils"
+import { generatePageNumbers } from "@/lib/utils"
 import { PER_PAGE } from "@/data"
 
 const PostsPagination = ({
