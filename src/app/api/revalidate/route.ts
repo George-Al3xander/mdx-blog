@@ -5,7 +5,7 @@ export const GET = async (req: NextRequest) => {
 
   if (secret !== process.env.SECRET_TOKEN) {
     return NextResponse.json(
-      { message: "Invalid token" },
+      { message: "Invalid token!" },
       { status: 401, statusText: "unauthorized" },
     )
   }
