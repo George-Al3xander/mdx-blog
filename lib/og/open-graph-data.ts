@@ -71,6 +71,8 @@ export async function genPageMetadata({
     }
   }
   const id = slug[1]
+
+  if (!id) return {}
   const post = await getPostById(postType, id)
 
   if (!post) return {}

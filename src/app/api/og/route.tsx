@@ -3,8 +3,9 @@ import { ImageResponse } from "next/og"
 import { websiteName } from "@/data"
 import { formatDate } from "@/components/post/post-date"
 import { TPost } from "@/types/types"
-import { ogImgPropertyKeys } from "@/lib/og/open-graph-data"
+
 export const runtime = "edge"
+const ogImgPropertyKeys = ["title", "date", "description", "author"] as const
 
 const interBold = fetch(
   new URL("../../../../assets/fonts/Inter-Bold.ttf", import.meta.url),
@@ -13,6 +14,7 @@ const interBold = fetch(
 export async function GET(req: NextRequest) {
   try {
     const fontBold = await interBold
+
     let postObj: Partial<TPost> = {}
     const { searchParams } = req.nextUrl
     const postType = searchParams.get("postType")
@@ -81,9 +83,6 @@ export async function GET(req: NextRequest) {
           </div>
           <div tw="flex items-center w-full justify-between">
             <div tw="flex text-xl">{process.env.HOST_URL}</div>
-            {/*<div tw="flex items-center text-xl">*/}
-            {/*  <div tw="flex ml-2">{socialMediaLinks.github}</div>*/}
-            {/*</div>*/}
           </div>
         </div>
       ),
