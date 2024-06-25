@@ -13,6 +13,8 @@ import PostsWithPagination from "@/components/post/posts-with-pagination"
 import PostById from "@/components/post/post-by-id"
 import { genPageMetadata } from "@/lib/og/open-graph-data"
 
+export const revalidate = 86400
+
 const getTotalCount = async (
   postType: TPostVariant & "all",
   searchQuery?: string,
