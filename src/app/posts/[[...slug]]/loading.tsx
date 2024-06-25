@@ -1,7 +1,3 @@
-import React from "react"
-
-const Loading = () => {
-  return <section>Loading...</section>
-}
+import Loading from "../../loading"
 
 export default Loading
