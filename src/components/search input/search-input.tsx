@@ -20,7 +20,7 @@ function SearchInput() {
           onChange={handleChange}
           value={searchQuery}
           placeholder="Search for anything...!"
-          className="w-[10px] basis-[100%] bg-white outline-none dark:bg-black"
+          className="autofill:!bg-yellow-20 w-[10px] basis-[100%] bg-white outline-none dark:bg-black"
           id="search-input"
           type="text"
         />

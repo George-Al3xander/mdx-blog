@@ -12,7 +12,7 @@ export default function Error({
   reset: () => void
 }) {
   return (
-    <section className="mx-auto flex w-responsive flex-col gap-4 py-10 text-center">
+    <section className="mx-auto flex min-h-[80vh] w-responsive flex-col gap-4 py-10 text-center">
       <Frown className="mx-auto h-20 w-20 sm:h-40 sm:w-40" />
       <h2 className="text-2xl">Something went wrong.</h2>
       <p className="opacity-60">

@@ -38,16 +38,16 @@ const PostCard = ({
         {description ? description : "There is no description for this post"}
       </p>
       <ul className="flex flex-wrap justify-between gap-4 font-semibold">
-        <li className="flex items-center justify-center">
+        <li className="flex flex-wrap items-center justify-start">
           <p className="flex items-center justify-center gap-1">
             <Calendar className="h-5 w-5" />
             <span className="sr-only">Published: </span>
-            <DateComp date={date} />
+            <DateComp date={date} />,
           </p>
 
           <p className="italic">
             <span className="sr-only">Written: </span>
-            <span>, by {author}</span>
+            <span> by {author}</span>
           </p>
         </li>
 

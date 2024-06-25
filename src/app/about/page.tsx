@@ -5,12 +5,12 @@ import StoryGridSection from "@/components/sections/about/grid/story-grid-sectio
 
 const AboutPage = () => {
   return (
-    <section>
+    <section className="mb-20">
       <div className="last-article relative my-0 mt-10 flex h-[calc(100vh-5rem)] overflow-hidden py-4 text-center">
         <span className="-mx-auto absolute inset-y-0 -z-10 h-full w-full opacity-70 blur-sm">
           <Image
             width={1920}
-            className={"max-w-[50rem] md:max-w-full md:object-cover"}
+            className={"max-w-[70rem] md:max-w-full md:object-cover"}
             height={1280}
             src={"/assets/img/bg_about_page.jpg"}
             alt={"Hero section background"}
