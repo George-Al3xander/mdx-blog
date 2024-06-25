@@ -4,14 +4,14 @@ import "./globals.css"
 import Header from "@/components/header/header"
 import Footer from "@/components/footer/footer"
 import Providers from "@/components/providers"
-import { websiteName } from "@/data"
+import { websiteDescription, websiteName } from "@/data"
 import { ReactNode } from "react"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: websiteName,
-  description: "A simple blog template built with Next.js and MDX.",
+  description: websiteDescription,
 }
 
 export default function RootLayout({

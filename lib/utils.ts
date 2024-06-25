@@ -1,6 +1,7 @@
 import { navLinks, sortOptions } from "@/data"
 import { SortFilter } from "@/types/types"
-
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
 export const generatePageNumbers = (
   totalPages: number,
   currentPage: number,
@@ -113,9 +114,6 @@ export const searchParamToSortFilter = (
   const value = split[1] === "desc" ? -1 : 1
   return { [key]: value }
 }
-
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

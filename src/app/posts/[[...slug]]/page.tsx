@@ -11,7 +11,6 @@ import { PER_PAGE } from "@/data"
 import { TPostVariant } from "@/types/types"
 import PostsWithPagination from "@/components/post/posts-with-pagination"
 import PostById from "@/components/post/post-by-id"
-
 import { genPageMetadata } from "@/lib/og/open-graph-data"
 
 const getTotalCount = async (

@@ -6,7 +6,7 @@ import Image from "next/image"
 const { title, description, buttons, subtitle } = heroData
 
 const HeroSection = () => (
-  <section className="last-article relative mb-[30vh] mt-10 flex overflow-hidden py-4 text-center md:my-0 md:h-[calc(100vh-5rem)]">
+  <section className="last-article relative mb-[10vh] mt-10 flex overflow-hidden py-4 text-center md:my-0 md:mb-[30vh] md:h-[calc(100vh-5rem)]">
     <span className="-mx-auto absolute inset-y-0 -z-10 h-full w-full opacity-70 blur-sm">
       <Image
         width={1920}

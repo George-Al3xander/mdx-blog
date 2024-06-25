@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/ui/dropdown-menu"
-import { Button } from "../ui/button"
+import { Button } from "@/ui/button"
 import { Sun, Moon, Check } from "lucide-react"
 import React from "react"
 import { useTheme } from "next-themes"

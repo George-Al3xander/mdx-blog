@@ -5,7 +5,8 @@ import React from "react"
 
 export const websiteName = "Strength Chronicles"
 export const websiteIcon = React.createElement(Dumbbell)
-
+export const websiteDescription =
+  "Strength Chronicles is your ultimate powerlifting archive, offering a comprehensive collection of articles and training programs to enhance your strength journey."
 export const navLinks = ["home", "posts", "about"] as const
 
 export const themesVariants: ThemeVariant[] = ["light", "dark", "system"]

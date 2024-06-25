@@ -8,8 +8,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/ui/pagination"
-import { cn } from "@/lib/utils"
-import { generatePageNumbers } from "@/lib/utils"
+import { cn, generatePageNumbers } from "@/lib/utils"
 import { PER_PAGE } from "@/data"
 
 const PostsPagination = ({
@@ -34,6 +33,7 @@ const PostsPagination = ({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
+            data-testid="pagination-previous"
             aria-disabled={page <= 1}
             tabIndex={page <= 1 ? -1 : undefined}
             className={cn({ "pointer-events-none opacity-50": page <= 1 })}
@@ -45,7 +45,7 @@ const PostsPagination = ({
           if (pageCustom == "...") {
             return (
               <PaginationItem key={key}>
-                <PaginationEllipsis />
+                <PaginationEllipsis data-testid="pagination-ellipsis" />
               </PaginationItem>
             )
           } else {
@@ -64,6 +64,7 @@ const PostsPagination = ({
         })}
         <PaginationItem>
           <PaginationNext
+            data-testid="pagination-next"
             href={`${pathname}?page=${page + 1}`}
             aria-disabled={page >= pagesCount}
             tabIndex={page >= pagesCount ? -1 : undefined}

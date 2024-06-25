@@ -36,11 +36,16 @@ export const getPostById = async (
   postType: TPostVariant,
   id: string,
 ): Promise<TPost | null> => {
-  if (postType == "programs") {
-    return await programService.findById(id)
-  }
+  try {
+    if (postType == "programs") {
+      return await programService.findById(id)
+    }
 
-  return await postService.findById(id)
+    return await postService.findById(id)
+  } catch (error) {
+    console.log(error)
+    return null
+  }
 }
 
 export const getPostsWithPrograms = async (
