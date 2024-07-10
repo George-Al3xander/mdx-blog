@@ -23,8 +23,15 @@ export default async function Image() {
 
   return new ImageResponse(
     (
-      <div tw="flex relative flex-col p-12 w-full h-full items-center text-black bg-white">
-        <div tw="flex flex-col justify-center flex-1 py-10">
+      <div
+        style={{
+          background: "linear-gradient(to top, #000000, #434343)",
+          color: "white",
+          textAlign: "center",
+        }}
+        tw="flex relative flex-col p-12 w-full h-full items-center"
+      >
+        <div tw="flex flex-col justify-center items-center flex-1 py-10">
           <div tw="flex items-center text-[80px] font-bold text-[50px] mb-4 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -44,9 +51,9 @@ export default async function Image() {
               <path d="M3.9 3.9 2.5 2.5" />
               <path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z" />
             </svg>
-            {websiteName}
+            <div tw={"ml-4"}>{websiteName}</div>
           </div>
-          <div tw="mb-4 text-2xl opacity-60">{websiteDescription}</div>
+          <div tw="mb-4 text-xl opacity-60">{websiteDescription}</div>
         </div>
         <div tw="flex items-center w-full justify-between">
           <div tw="flex text-xl">{process.env.HOST_URL}</div>
