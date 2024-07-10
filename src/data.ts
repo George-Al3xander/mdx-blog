@@ -21,7 +21,7 @@ export const heroData: HeroData = {
       children: React.createElement(
         Link,
         {
-          href: "/posts",
+          href: "/posts/articles",
         },
         React.createElement(Newspaper, { className: "h-4 w-4 mr-2" }),
         "Articles",
@@ -31,7 +31,7 @@ export const heroData: HeroData = {
       children: React.createElement(
         Link,
         {
-          href: "/programs",
+          href: "/posts/programs",
         },
         React.createElement(Dumbbell, { className: "h-4 w-4 mr-2" }),
         "Programs",

@@ -67,6 +67,7 @@ const MobileMenu = () => {
         <Button variant="outline" size="icon" asChild>
           <SheetTrigger>
             <Menu className="h-4 w-4" />
+            <span className="sr-only">Open menu</span>
           </SheetTrigger>
         </Button>
         <SheetContent>

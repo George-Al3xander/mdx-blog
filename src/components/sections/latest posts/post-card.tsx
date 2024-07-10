@@ -21,7 +21,7 @@ const PostCard = ({
       })}
     >
       <h4
-        className={cn("text-sm capitalize text-blue-500", {
+        className={cn("text-sm capitalize text-blue-800 dark:text-blue-500", {
           "text-orange-500": isProgram,
         })}
       >
@@ -45,7 +45,7 @@ const PostCard = ({
             <DateComp date={date} />,
           </p>
 
-          <p className="italic">
+          <p className="font-bold">
             <span className="sr-only">Written: </span>
             <span> by {author}</span>
           </p>
