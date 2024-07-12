@@ -13,7 +13,10 @@ function SortMenu() {
   const { sortOptions, checkIfCurrent, ...options } = useSortBy()
   return (
     <Select {...options}>
-      <SelectTrigger className="my-4 ml-auto w-[50%] capitalize sm:w-[100px]">
+      <SelectTrigger
+        aria-label="Open a sort by filters menu"
+        className="my-4 ml-auto w-[50%] capitalize sm:w-[100px]"
+      >
         sort by
       </SelectTrigger>
       <SelectContent>

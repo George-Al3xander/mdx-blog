@@ -11,8 +11,12 @@ const Header = () => {
         <Logo />
         <Nav />
         <ul className={`ml-auto flex`}>
-          <ThemeSwitchMenu />
-          <MobileMenu />
+          <li>
+            <ThemeSwitchMenu />
+          </li>
+          <li>
+            <MobileMenu />
+          </li>
         </ul>
       </div>
     </header>
