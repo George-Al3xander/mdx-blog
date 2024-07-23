@@ -3,6 +3,7 @@ import { TPostVariant } from "@/types/types"
 import { websiteName } from "@/data"
 import { getPostById } from "@/lib/mongo/actions"
 import { capitalizeStr } from "@/lib/utils"
+import * as process from "node:process"
 
 export const ogImgPropertyKeys = [
   "title",
@@ -48,6 +49,7 @@ export async function genPageMetadata({
       title: `${postType == "all" ? "Posts" : capitalizeStr(postType)} | ${websiteName}`,
       description,
       authors: { name: "George V." },
+      metadataBase: new URL(process.env.HOST_URL!),
       openGraph: {
         title,
         description,
@@ -86,6 +88,7 @@ export async function genPageMetadata({
   return {
     title: `${title} | ${websiteName}`,
     description,
+    metadataBase: new URL(process.env.HOST_URL!),
     authors: { name: author },
     openGraph: {
       title,

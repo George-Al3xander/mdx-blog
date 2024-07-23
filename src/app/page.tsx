@@ -2,7 +2,6 @@ import HeroSection from "@/components/sections/hero/hero-section"
 import dynamic from "next/dynamic"
 import { Spinner } from "@/ui/spinner"
 import React from "react"
-//import LatestPosts from "@/components/sections/latest posts/latest-posts"
 
 const LatestPosts = dynamic(
   () => import("@/components/sections/latest posts/latest-posts"),
