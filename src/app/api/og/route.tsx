@@ -8,7 +8,7 @@ export const runtime = "edge"
 const ogImgPropertyKeys = ["title", "date", "description", "author"] as const
 
 const interBold = fetch(
-  new URL("../../../../assets/fonts/Inter-Bold.ttf", import.meta.url),
+  new URL("public/assets/fonts/Inter-Bold.ttf", import.meta.url),
 ).then((res) => res.arrayBuffer())
 
 export async function GET(req: NextRequest) {

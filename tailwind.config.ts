@@ -26,7 +26,7 @@ const config = {
         "screen-no-header": "calc(100vh-5rem)",
       },
       backgroundImage: {
-        hero: "url(/assets/img/bg_hero.jpg)",
+        hero: "url(/assets/img/bg_hero.webp)",
       },
       colors: {
         border: "hsl(var(--border))",

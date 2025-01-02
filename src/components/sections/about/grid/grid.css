@@ -59,12 +59,8 @@
     background-repeat: no-repeat;
     background-image:
             linear-gradient(to bottom, rgba(0,0,205, .52), rgba(0, 0, 0, 0.73)),
-            url('../../../../../public/assets/img/ph_about_2.jpg');
-    /*width: 80%;*/
-    /*height: 400px;*/
-    /*background-size: cover;*/
-    /*color: white;*/
-    /*padding: 20px;*/
+            url('../../../../../public/assets/img/ph_about_2.webp');
+
 }
 
 .story-grid-section {

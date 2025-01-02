@@ -12,7 +12,7 @@ const HeroSection = () => (
         width={1920}
         className={"max-w-[50rem] md:max-w-full md:object-cover"}
         height={1280}
-        src={"/assets/img/bg_hero.jpg"}
+        src={"/assets/img/bg_hero.webp"}
         alt={"Hero section background"}
       />
     </span>

@@ -12,7 +12,7 @@ const AboutPage = () => {
             width={1920}
             className={"max-w-[70rem] md:max-w-full md:object-cover"}
             height={1280}
-            src={"/assets/img/bg_about_page.jpg"}
+            src={"/assets/img/bg_about_page.webp"}
             alt={"Hero section background"}
           />
         </span>

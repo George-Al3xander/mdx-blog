@@ -1,7 +1,7 @@
 import React from "react"
 import { Button } from "@/ui/button"
 import Link from "next/link"
-import PlatePic from "/public/assets/img/plate_pic.png"
+import PlatePic from "/public/assets/img/plate_pic.webp"
 import Image from "next/image"
 function NotFound() {
   return (

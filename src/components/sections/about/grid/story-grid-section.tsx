@@ -39,7 +39,8 @@ function StoryGridSection() {
             width={640}
             className={"h-full w-full object-cover"}
             height={426}
-            src={"/assets/img/ph_about_1.jpg"}
+            loading="lazy"
+            src={"/assets/img/ph_about_1.webp"}
             alt={"Man wrapping wrists"}
           />
         </span>

@@ -13,11 +13,9 @@ export const size = {
 
 export const contentType = "image/png"
 
-// Image generation
 export default async function Image() {
-  // Font
   const interBold = fetch(
-    new URL("../../assets/fonts/Inter-Bold.ttf", import.meta.url),
+    new URL("public/assets/fonts/Inter-Bold.ttf", import.meta.url),
   ).then((res) => res.arrayBuffer())
   const fontBold = await interBold
 
