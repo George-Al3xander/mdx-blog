@@ -38,8 +38,7 @@ export async function genPageMetadata({
   const [postType] = slug as [TPostVariant | "all"]
 
   if (slug.length == 1 || postType == "all") {
-    const { title } = pagesMetaData[postType]
-    const { description } = pagesMetaData[postType]
+    const { title, description } = pagesMetaData[postType] || pagesMetaData.all
     const ogSearchParams = new URLSearchParams()
 
     ogSearchParams.set("title", title)

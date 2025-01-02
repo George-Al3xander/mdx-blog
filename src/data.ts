@@ -47,3 +47,5 @@ export const sortOptions: { value: string; title: string }[] = [
   { title: "Date created(newest first)", value: "date-desc" },
   { title: "Date created(oldest first)", value: "date-asc" },
 ]
+
+export const allowedPostTypes = ["all", "articles", "programs"]
