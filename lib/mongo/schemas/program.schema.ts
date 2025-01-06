@@ -1,28 +1,26 @@
-import mongoose from "mongoose"
-import { postSchemaBlueprint } from "./utils"
+import mongoose from "mongoose";
+import { postSchemaBlueprint } from "./utils";
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
 export const programSchema = new Schema(
-  Object.assign(
+    Object.assign(postSchemaBlueprint, {
+        type: {
+            type: String,
+            enum: ["strength", "hypertrophy", "mixed"],
+            default: "strength",
+        },
+        file: {
+            type: String,
+            required: false,
+        },
+    }),
     {
-      type: {
-        type: String,
-        enum: ["strength", "hypertrophy", "mixed"],
-        default: "strength",
-      },
-      file: {
-        type: String,
-        required: false,
-      },
+        timestamps: true,
     },
-    postSchemaBlueprint,
-  ),
-  {
-    timestamps: true,
-  },
-)
+);
 
-export default mongoose.models!.Program
-  ? mongoose.models!.Program
-  : mongoose.model("Program", programSchema)
+const Program =
+    mongoose.models?.Program || mongoose.model("Program", programSchema);
+
+export default Program;

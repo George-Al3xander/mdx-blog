@@ -1,55 +1,67 @@
-import { Model, Document } from "mongoose"
-import { PER_PAGE } from "@/data"
-import { ConnectToMongo } from "@/lib/mongo/utils"
-import { searchParamToSortFilter } from "@/lib/utils"
+import { PER_PAGE } from "@/data";
+import { ConnectToMongo } from "@/lib/mongo/utils";
+import { searchParamToSortFilter } from "@/lib/utils";
+import type { TPaginationSolidBase } from "@/types/types";
+import { Model } from "mongoose";
 
-export class MongoService<T extends Document> {
-  mongoModel: Model<T>
+interface IMongoService<T> {
+    mongoModel: Model<T>;
+    getById(id: string): Promise<T | null>;
+    getAll(obj: TPaginationSolidBase): Promise<T[] | null>;
+    getCount(query?: string): Promise<number>;
+}
 
-  constructor(model: Model<T>) {
-    this.mongoModel = model
-  }
+export class MongoService<T> implements IMongoService<T> {
+    mongoModel: Model<T>;
 
-  @ConnectToMongo()
-  findById(id: string): Promise<T | null> {
-    return this.mongoModel.findById(id)
-  }
-
-  @ConnectToMongo()
-  async findAll(
-    page: string | number,
-    searchQuery?: string | undefined,
-    sortParam: string | undefined = "date-desc",
-  ): Promise<T[]> {
-    page = typeof page == "number" ? page : Number(page)
-    page = Math.floor(page)
-    const perPage = PER_PAGE
-    const skip = (page - 1) * perPage
-    const sortFilter = searchParamToSortFilter(sortParam) as any
-    try {
-      if (searchQuery) {
-        await this.mongoModel.createIndexes()
-        return await this.mongoModel
-          .find({
-            $text: { $search: searchQuery, $caseSensitive: false },
-          })
-          .skip(skip)
-          .limit(perPage)
-      }
-      return this.mongoModel.find().sort(sortFilter).limit(perPage).skip(skip)
-    } catch (error) {
-      console.log(error)
-      return []
+    constructor(model: Model<T>) {
+        this.mongoModel = model;
     }
-  }
 
-  @ConnectToMongo()
-  getCount(searchQuery?: string): Promise<number> {
-    if (searchQuery) {
-      return this.mongoModel.countDocuments({
-        $text: { $search: searchQuery, $caseSensitive: false },
-      })
+    @ConnectToMongo()
+    getById(id: string): Promise<T | null> {
+        return this.mongoModel.findById(id);
     }
-    return this.mongoModel.countDocuments()
-  }
+
+    @ConnectToMongo()
+    async getAll({
+        page,
+        searchQuery,
+        sortBy = "date-desc",
+    }: TPaginationSolidBase): Promise<T[]> {
+        page = typeof page == "number" ? page : Number(page);
+        page = Math.floor(page);
+        const perPage = PER_PAGE;
+        const skip = (page - 1) * perPage;
+        const sortFilter = searchParamToSortFilter(sortBy) as any;
+        try {
+            if (searchQuery) {
+                await this.mongoModel.createIndexes();
+                return await this.mongoModel
+                    .find({
+                        $text: { $search: searchQuery, $caseSensitive: false },
+                    })
+                    .skip(skip)
+                    .limit(perPage);
+            }
+            return this.mongoModel
+                .find()
+                .sort(sortFilter)
+                .limit(perPage)
+                .skip(skip);
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    }
+
+    @ConnectToMongo()
+    getCount(searchQuery?: string): Promise<number> {
+        if (searchQuery) {
+            return this.mongoModel.countDocuments({
+                $text: { $search: searchQuery, $caseSensitive: false },
+            });
+        }
+        return this.mongoModel.countDocuments();
+    }
 }

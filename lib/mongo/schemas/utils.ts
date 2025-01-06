@@ -1,33 +1,33 @@
 export const postSchemaBlueprint = {
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: String,
-    required: true,
-  },
-  tags: {
-    type: [String],
-    required: true,
-  },
-  author: {
-    type: String,
-    required: true,
-  },
-  originalSource: {
-    type: {
-      title: String,
-      href: String,
+    title: {
+        type: String,
+        required: true,
     },
-    required: false,
-  },
-}
+    description: {
+        type: String,
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    },
+    date: {
+        type: String,
+        required: true,
+    },
+    tags: {
+        type: [String],
+        required: true,
+    },
+    author: {
+        type: String,
+        required: true,
+    },
+    originalSource: {
+        type: {
+            title: String,
+            href: String,
+        },
+        required: false,
+    },
+} as const;

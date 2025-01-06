@@ -1,58 +1,25 @@
-"use server"
-import { MongoService, Post, Program, MongoComboService } from "@/lib/mongo"
-import { TPost, TPostVariant } from "@/types/types"
+"use server";
+import { MongoComboService, MongoService, Post, Program } from "@/lib/mongo";
+import { TPost, TProgram } from "@/types/types";
 
-const postService = new MongoService<TPost>(Post)
-const programService = new MongoService<any>(Program)
-const postsWithPrograms = new MongoComboService<TPost>(
-  Post,
-  "posts",
-  "programs",
-)
+const articleService = new MongoService<TPost>(Post);
+const programService = new MongoService<TProgram>(Program);
 
-export const getPosts = async (
-  postType: TPostVariant,
-  page: string | number,
-  searchQuery?: string,
-  sortFilter?: string,
-): Promise<TPost[]> => {
-  if (postType == "programs") {
-    return await programService.findAll(page, searchQuery, sortFilter)
-  }
-  return await postService.findAll(page, searchQuery, sortFilter)
-}
+const allPublicationsService = new MongoComboService<TPost>({
+    source: "articles",
+    target: "programs",
+});
 
-export const getPostCount = async (
-  postType: TPostVariant,
-  searchQuery?: string,
-): Promise<number> => {
-  if (postType == "programs") {
-    return await programService.getCount(searchQuery)
-  }
-  return await postService.getCount(searchQuery)
-}
+export const getArticles = articleService.getAll.bind(articleService);
+export const getArticleByID = articleService.getById.bind(articleService);
+export const getArticlesCount = articleService.getCount.bind(articleService);
 
-export const getPostById = async (
-  postType: TPostVariant,
-  id: string,
-): Promise<TPost | null> => {
-  try {
-    if (postType == "programs") {
-      return await programService.findById(id)
-    }
+export const getPrograms = programService.getAll.bind(programService);
+export const getProgramByID = programService.getById.bind(programService);
+export const getProgramsCount = programService.getCount.bind(programService);
 
-    return await postService.findById(id)
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-}
-
-export const getPostsWithPrograms = async (
-  page: string | number,
-  searchQuery?: string,
-  sortFilter?: string,
-) => await postsWithPrograms.getCollections(page, searchQuery, sortFilter)
-
-export const getPostsProgramsCount = async () =>
-  await postsWithPrograms.getCount()
+export const getPublications =
+    allPublicationsService.getItems.bind(programService);
+export const getPublicationsCount = allPublicationsService.getCount.bind(
+    allPublicationsService,
+);
